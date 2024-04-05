@@ -1,7 +1,7 @@
 <template>
   
-  <v-container id="myContainer" fluid class="fill-height" >
-    <v-row class = " myRow d-flex justify-end">
+  <v-container id="myContainer" fluid  >
+    <v-row  class = " d-flex justify-end my-3">
       <v-btn class = "mx-3" @click = "cancel" color = "red">Cancel</v-btn>
       <v-btn class = "mx-3 " @click = "save" color = "primary" >SAVE</v-btn>
     </v-row>
@@ -192,17 +192,16 @@
 
 #myContainer{
   position: relative; 
+  height: 100vh;
   background-color: whitesmoke;
 }
+
 td{
   /* border: 1px solid red */
 }
 #device-table{
+  margin-top:20px;
   width:100%
-}
-#input-container{
-  padding:0px;
-  width:10%
 }
 #input{
   border: 1px solid grey;

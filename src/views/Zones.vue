@@ -1,6 +1,5 @@
 <template>
-  <v-container class="fill-height">
-
+  <v-container id = 'zones-container' fluid class="fill-height">
       <v-row class = "d-flex justify-center">
           <v-col cols = "3" class = " myCols d-flex justify-center" v-for="(item,index) in stateStore.zoneNames" :key="index">
               <ZoneButton :zoneBtnName = item> </ZoneButton>
@@ -8,10 +7,9 @@
           <v-col cols = "3" class = " myCols d-flex justify-center" v-for="(item,index) in stateStore.vwList" :key="index">
               <VideowallButton :vwBtnName = item.vwName :vwType = item.vwType> </VideowallButton>
           </v-col>
-
       </v-row>
-      
-
+      <PowerOnOffGroupButton></PowerOnOffGroupButton>
+      <SelectAllButton></SelectAllButton> 
   </v-container>
 </template>
 
@@ -19,10 +17,12 @@
   import { useStateStore} from '@/stores/StateStore'
   import ZoneButton from '@/components/ZoneButton.vue'
   import VideowallButton from '@/components/VideowallButton.vue'
+  import PowerOnOffGroupButton from '@/components/PowerOnOffGroupButton.vue'
+  import SelectAllButton from '@/components/SelectAllButton.vue'
 
   export default {
   name: "Zones",
-  components:{ZoneButton,VideowallButton},
+  components:{ZoneButton,VideowallButton,PowerOnOffGroupButton,SelectAllButton },
 
   setup(){
     // Pinia
@@ -34,7 +34,7 @@
     
   }),
   methods: {
-    
+        
   },
 
   //Life Cycle Hooks
@@ -51,14 +51,13 @@
 
   
 };
-
-
   
 </script>
 
 <style scoped>
-.myCols{
-  /* border:1px solid red */
+
+#zones-container{
+  position: relative;
 }
 
 

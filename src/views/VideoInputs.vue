@@ -11,26 +11,32 @@
                     :timeout="3000"
                     color="blue"
                >    
-                    <div v-if = "stateStore.vwSelected == ''" >
+                    <div v-if = "stateStore.vwSelected == '' && stateStore.switchAllRx == false " >
                          {{ ` ${stateStore.rxSelectedLabel} to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
                     </div>
-                    <div v-else-if = "stateStore.vwSelected != '' && stateStore.switch1RxOnly == true" >
+                    <div v-else-if = "stateStore.vwSelected != '' && stateStore.switch1RxOnly == true && stateStore.switchAllRx == false " >
                          {{ ` ${stateStore.vwSelected} RX ${stateStore.rxSelected} to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
                     </div>
-                    <div v-else >
+                    <div v-else-if = "stateStore.vwSelected != '' && stateStore.switch1RxOnly == false && stateStore.switchAllRx == false "  >
                          {{ ` ${stateStore.vwSelected} to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
                     </div>
+                    <div v-else-if = "stateStore.switchAllRx == true "  >
+                         {{ ` All TV's to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
+                    </div >
 
                     <template>
                          <v-btn color="white" variant="text"></v-btn>
                     </template>
                </v-snackbar>
 
-               <v-row v-if = "stateStore.vwSelected == ''" id = "rx-label" class='d-flex justify-center pa-6 myCol'>
+               <v-row v-if = "stateStore.vwSelected == '' && stateStore.switchAllRx == false" id = "rx-label" class='d-flex justify-center pa-6 myCol'>
                     Select Video for - {{stateStore.rxSelectedLabel}}
                </v-row>
-                    <v-row v-else id = "rx-label" class='d-flex justify-center pa-6 myCol'>
+               <v-row v-else-if = "stateStore.vwSelected != '' && stateStore.switchAllRx == false" id = "rx-label" class='d-flex justify-center pa-6 myCol'>
                     Select Video for - {{stateStore.vwSelected}}
+               </v-row>
+               <v-row v-else-if = "stateStore.switchAllRx == true" id = "rx-label" class='d-flex justify-center pa-6 myCol'>
+                    Select Video for - All TV's
                </v-row>
                <v-row class="myRow d-flex align-center">
                     <v-col  v-for="(item,index) in stateStore.txAssignments"  :key="index" class ="d-flex justify-center pl-0">

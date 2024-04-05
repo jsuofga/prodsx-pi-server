@@ -29,6 +29,7 @@
         this.stateStore.rxSelectedLabel = `${_rxLabel}`
         this.stateStore.rxSelected = _rxID
         this.stateStore.switch1RxOnly = true
+        this.stateStore.switchAllRx = false
         localStorage.setItem('rxSelected', this.stateStore.rxSelected)  // save rxSelected to local storage. For case, user refreshes web page.
         localStorage.setItem('rxSelectedLabel', this.stateStore.rxSelectedLabel)  // save rxSelectedLabel to local storage. For case, user refreshes web page.
         this.$router.push('/videoinputs')

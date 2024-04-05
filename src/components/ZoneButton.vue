@@ -61,7 +61,7 @@ export default {
    color:white;
 }
 .button-round:hover{
-  background-color: purple;
+  background-color: #2196F3;
 }
 
 

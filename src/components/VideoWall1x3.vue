@@ -6,14 +6,14 @@
           <v-chip id = "rx-chip-1">{{vwIPs[0]}}</v-chip> 
           <v-col cols = '4' class = "grid-1x3"><v-img id = "capture-scaled1x3" :src= bg_image[0] ></v-img></v-col>
           <v-col cols = '4' class = "grid-1x3"><v-chip class = "rx-chip">{{vwIPs[1]}}</v-chip></v-col>
-          <v-col cols = '4' class = "grid-1x3"><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip><v-btn id = 'vw1x3-1x3Btn' size='x-large' @click = "switch1x3VW()">1x3</v-btn></v-col>
+          <v-col cols = '4' class = "grid-1x3"><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip><v-btn id = 'vw1x3-1x3Btn' size='large' @click = "switch1x3VW()">1x3</v-btn></v-col>
         </v-row> 
 
         <v-row v-else id ='vw-1x3'  > 
           <v-chip id = "rx-chip-1">{{vwIPs[0]}}</v-chip> 
           <v-col cols = '4' class = "grid-1x3"><v-img  :src= bg_image[0] ></v-img></v-col>
           <v-col cols = '4' class = "grid-1x3"><v-img  :src= bg_image[1] ><v-chip class = "rx-chip">{{vwIPs[1]}}</v-chip></v-img></v-col>
-          <v-col cols = '4' class = "grid-1x3"><v-img  :src= bg_image[2] ><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip></v-img><v-btn id = 'vw1x3-1x3Btn' size='x-large' @click = "switch1x3VW()">1x3</v-btn></v-col>
+          <v-col cols = '4' class = "grid-1x3"><v-img  :src= bg_image[2] ><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip></v-img><v-btn id = 'vw1x3-1x3Btn' size='large' @click = "switch1x3VW()">1x3</v-btn></v-col>
         </v-row> 
       </v-col>
       <v-snackbar
@@ -67,6 +67,7 @@ computed:{
     },
     switch1x3VW(){
         this.stateStore.switch1RxOnly = false
+        this.stateStore.switchAllRx = false
         this.stateStore.rxSelected = this.vwIPs[0]
         localStorage.setItem('rxSelected',this.stateStore.rxSelected )  // set rxSelectedLabel to local storage. For case, user refreshes web page.
         this.$router.push('/videoinputs')
@@ -166,7 +167,7 @@ computed:{
   bottom:0px;
   right:0px;
   color:white;
-  background-color: green;
+  background-color: #2196F3;
 }
 
 </style>

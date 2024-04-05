@@ -1,11 +1,12 @@
 <template>
   
-  <v-container id="myContainer" fluid class="fill-height" >
-    <v-row v-if = "showSave" class = " ma-3">
-      <v-col class = "myCols"></v-col>
-      <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "myCols text-red" >   
-        1. Remove duplicate devices as indicated  
-        2. Repeat Device List Scan 
+  <v-container id="myContainer" fluid  >
+    <v-row  v-if = "showSave" class = "mx-3">
+      <v-col></v-col>
+      <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "d-flex flex-column justify-center text-red" >  
+         <div class = "d-flex justify-center" >  1. Remove duplicate devices as indicated  </div> 
+         <div class = "d-flex justify-center"> 2. Repeat Device List Scan   </div>
+         <div class = "d-flex justify-center my-3"> <v-btn v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "mx-3" @click = "rescan" color = "primary">ReScan</v-btn></div>
       </v-col>
        <v-col v-else></v-col>
       <v-col class = "myCols d-flex justify-end "> 
@@ -59,37 +60,31 @@
     }),
     computed:{
     
-    
     },
     methods: {
+       rescan(){
+        location.reload()
+       },
        async saveDeviceList(){
         // save to Pi Server file UserTvNames.txt, UserInputNames.txt
-        const serverURL = '192.168.1.173:3000'
-        // const serverURL = `${location.hostname}:3000`
+        const serverURL = this.stateStore.serverURL
         let sourceNames = []
 
+          // Add in detected TX and RX
           this.stateStore.nodeQueryList_dump.forEach((item,index)=>{
              if(item.is_host == 'n'){  //for RX devices
                let rxDetected = {rxId: item.ip, name:'', zoneId:'', zone:'',vwName:'',vwType:''}
-              // if rxDetected is not already in the rxAssignments[] , then push in new rxDetected 
-              if (!this.stateStore.rxAssignments.some(item => item.rxId === rxDetected.rxId)) {
-                  this.rxAssignments.push(rxDetected);
-                }
+               this.stateStore.rxAssignments.push(rxDetected);
+ 
              }else if(item.is_host == 'y'){ //for TX devices
                 let tx = {txId: item.ip, name:`Video${index+1}`}
-                // console.log(tx)
                 sourceNames.push(tx) 
-                
              }
           })
-          
           //Send to Express to save in 'UserTvNames.txt', 'UserInputNames'
-        //  await  fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(tvNamesZones)}`)
          await  fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
          await  fetch(`http://${serverURL}/write/UserInputNames/${JSON.stringify(sourceNames)}`)
-
          this.$router.push('/')
-
       
     },
     cancel:function(){
@@ -99,7 +94,6 @@
     },
   async created(){
       this.stateStore.showSideMenu = false
-      this.stateStore.get_UserTvNames() 
       await this.stateStore.getNodeQuery() //call immediatly 1st 
       this.showSave = true
     },
@@ -114,10 +108,8 @@
 
 #myContainer{
   position: relative; 
+  height:100vh;
   background-color: whitesmoke;
-}
-.myCols{
-  /* border:1px solid red */
 }
 #progress{
   color: #1E88E5;
@@ -126,7 +118,9 @@
   top: 25%;
 }
 #device-table{
-  width:100%
+  margin-top:20px;
+  width:100%;
+
 }
 .is_receiver{
    border-left: 5px solid orange;

@@ -20,6 +20,7 @@ export const useStateStore = defineStore('stateStore', {
         vwSelected : '',
         vwTypeSelected:'',
         switch1RxOnly:true,
+        switchAllRx:false,
         vw2x3Mode:'',
         vw3x3Mode:'',
         page: '/', 
@@ -43,8 +44,30 @@ export const useStateStore = defineStore('stateStore', {
      },
      actions: {
         // since we rely on `this`, we cannot use an arrow function
+        power_cec(_onOff){
+          const cec_off = `cec_send E0:36` 
+          const cec_on = `cec_send E0:04`
+          if(_onOff == 'on'){
+            for(let item of this.rxAssignments ){
+              fetch(`http://${item.rxId}/cgi-bin/query.cgi?cmd=${cec_on}`)
+            }
+          }else{
+            for(let item of this.rxAssignments ){
+              fetch(`http://${item.rxId}/cgi-bin/query.cgi?cmd=${cec_off}`)
+            }
+          }
+        },
+
         switchRX(_txID){
           fetch(`http://${this.rxSelected}/cgi-bin/query.cgi?cmd=vw:off%3Brxswitch:${_txID}`)
+        },
+        switchAllRX(_txID){
+          alert('switch ALL')
+          for(let [index,item] of this.rxAssignments.entries() ){
+              console.log(`http://${item.rxId}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
+              fetch(`http://${item.rxId}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
+          }
+
         },
         videoWallOff(){
           this.snackbarVWOff = true
@@ -152,50 +175,58 @@ export const useStateStore = defineStore('stateStore', {
            await  matched.forEach((item,index) =>{
                this.nodeQueryList_dump.push(JSON.parse(item))
            })
-               this.nodeQueryList_dump = this.nodeQueryList_dump.sort((a, b) => (a.ip > b.ip) ? 1 : -1)  // sort by ascending IP address
-               console.log(this.nodeQueryList_dump)
+
+          // sort by ascending IP address
+          await this.nodeQueryList_dump.sort((a, b) => {
+            const numA = a.ip.split('.').map(Number);
+            const numB = b.ip.split('.').map(Number);
+            for (let i = 0; i < 4; i++) {
+                if (numA[i] !== numB[i]) {
+                    return numA[i] - numB[i];
+                }
+            }
+            return 0;
+        });
+
            await this.getFirmwareVersionAndMAC()
            await this.findDuplicateIP()
            this.showProgress = false
 
         },
-
-        async findDuplicateIP(){
-          this.nodeQueryList_dump.forEach((item) =>console.log(item))
-          this.nodeQueryList_ip = this.nodeQueryList_dump.map((item)=> item.ip)  // get array of only the ip address
-          this.nodeQueryList_ip_duplicates = this.nodeQueryList_ip.filter((item, index) => this.nodeQueryList_ip.indexOf(item) !== index);
-        },
-
-        async getFirmwareVersionAndMAC(){
-
-          for (let [index, device] of this.nodeQueryList_dump.entries()) {
-                // get Aspeed firmware versions
-                const responseVersion = await fetch(`http://${device.ip}/cgi-bin/query.cgi?cmd=cat%20/etc/version`)
-                const dataVersion= await responseVersion.text()
-                // let deviceSummary = {}
-                let resultVersion = dataVersion.replace(/[\n\r]/g, ',');  //remove CR with ,
-                resultVersion = resultVersion.split(",").slice(5,-2) // convert string into array of substrings
-                this.nodeQueryList_dump[index].fw_build = `${resultVersion[0]}`
-                this.nodeQueryList_dump[index].fw_version = `${resultVersion[1]}`
-
-              // get MAC address by using 'astparam dump ro'command
-                const responseDumpRo = await fetch(`http://${device.ip}/cgi-bin/query.cgi?cmd=astparam%20dump%20ro`)
-                const dataDumpRo= await responseDumpRo.text()
-                let resultDumpRo = dataDumpRo.replace(/[\n\r]/g, ',');  //remove CR with ,
-                resultDumpRo = resultDumpRo.split(",")// convert string into array of substrings
-                 // remove all items in array not contain 'ethaddr'
-                let ethaddrOnly = resultDumpRo.filter(item => item.includes('ethaddr'))
-                this.nodeQueryList_dump[index].mac = ethaddrOnly[0].replace("ethaddr=","")
-
-                // get Microchip MCU firmware versions
-                const responseMcuVersion = await fetch(`http://${device.ip}/cgi-bin/query.cgi?cmd=cat%20/etc/mcu_version`)
-                let dataMcuVersion = await responseMcuVersion.text()
-                dataMcuVersion = dataMcuVersion.replace(/[\n\r]/g,'')  //remove CR 
-                this.nodeQueryList_dump[index].mcu_version = dataMcuVersion
-
-            }
-            console.log('updated dump', this.nodeQueryList_dump)
+      async findDuplicateIP(){
+        this.nodeQueryList_dump.forEach((item) =>console.log(item))
+        this.nodeQueryList_ip = this.nodeQueryList_dump.map((item)=> item.ip)  // get array of only the ip address
+        this.nodeQueryList_ip_duplicates = this.nodeQueryList_ip.filter((item, index) => this.nodeQueryList_ip.indexOf(item) !== index);
       },
+      async getFirmwareVersionAndMAC(){
+
+        for (let [index, device] of this.nodeQueryList_dump.entries()) {
+              // get Aspeed firmware versions
+              const responseVersion = await fetch(`http://${device.ip}/cgi-bin/query.cgi?cmd=cat%20/etc/version`)
+              const dataVersion= await responseVersion.text()
+              // let deviceSummary = {}
+              let resultVersion = dataVersion.replace(/[\n\r]/g, ',');  //remove CR with ,
+              resultVersion = resultVersion.split(",").slice(5,-2) // convert string into array of substrings
+              this.nodeQueryList_dump[index].fw_build = `${resultVersion[0]}`
+              this.nodeQueryList_dump[index].fw_version = `${resultVersion[1]}`
+
+            // get MAC address by using 'astparam dump ro'command
+              const responseDumpRo = await fetch(`http://${device.ip}/cgi-bin/query.cgi?cmd=astparam%20dump%20ro`)
+              const dataDumpRo= await responseDumpRo.text()
+              let resultDumpRo = dataDumpRo.replace(/[\n\r]/g, ',');  //remove CR with ,
+              resultDumpRo = resultDumpRo.split(",")// convert string into array of substrings
+                // remove all items in array not contain 'ethaddr'
+              let ethaddrOnly = resultDumpRo.filter(item => item.includes('ethaddr'))
+              this.nodeQueryList_dump[index].mac = ethaddrOnly[0].replace("ethaddr=","")
+
+              // get Microchip MCU firmware versions
+              const responseMcuVersion = await fetch(`http://${device.ip}/cgi-bin/query.cgi?cmd=cat%20/etc/mcu_version`)
+              let dataMcuVersion = await responseMcuVersion.text()
+              dataMcuVersion = dataMcuVersion.replace(/[\n\r]/g,'')  //remove CR 
+              this.nodeQueryList_dump[index].mcu_version = dataMcuVersion
+
+          }
+     },
      
       async getFeedback(){
           // console.log('feedback')

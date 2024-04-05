@@ -45,6 +45,9 @@ export default {
         //switch just a RX
          this.stateStore.switchRX(_txID)
          this.stateStore.snackbar = true
+      }else if(this.stateStore.switchAllRx == true){
+         this.stateStore.switchAllRX(_txID)
+         this.stateStore.snackbar = true
       }else{
         //switch a video wall
         this.stateStore.switchVW(_txID)

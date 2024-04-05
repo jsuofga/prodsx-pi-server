@@ -8,8 +8,8 @@
           <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[1] @click = "switch2x3VW_solo(1)" ><v-chip class = "rx-chip">{{vwIPs[1]}}</v-chip></v-img></v-col>
           <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[2] @click = "switch2x3VW_solo(2)"><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip></v-img> </v-col>
           <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[3] @click = "switch2x3VW_solo(3)"><v-chip class = "rx-chip">{{vwIPs[3]}}</v-chip></v-img></v-col>
-          <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[4] @click = "switch2x3VW_solo(4)"><v-chip class = "rx-chip">{{vwIPs[4]}}</v-chip></v-img><v-btn id = 'vw2x3-offBtn' icon='mdi-grid' size='x-large' @click = "stateStore.videoWallOff()"></v-btn><v-btn id = 'vw2x3-2x2OnBtn' @click = "switch2x3VW('vw2x3_2x2on')"  size='x-large' >2x2</v-btn> </v-col>
-          <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[5] @click = "switch2x3VW_solo(5)"><v-chip class = "rx-chip">{{vwIPs[5]}}</v-chip></v-img><v-btn id = 'vw2x3-onBtn' size='x-large' @click = "switch2x3VW('vw2x3_2x3on')" >2x3</v-btn></v-col>
+          <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[4] @click = "switch2x3VW_solo(4)"><v-chip class = "rx-chip">{{vwIPs[4]}}</v-chip></v-img><v-btn id = 'vw2x3-offBtn' icon='mdi-grid' size='large' @click = "stateStore.videoWallOff()"></v-btn><v-btn id = 'vw2x3-2x2OnBtn' @click = "switch2x3VW('vw2x3_2x2on')"  size='large' >2x2</v-btn> </v-col>
+          <v-col cols = '4' class = "grid-2x3"><v-img  cover :src= bg_image[5] @click = "switch2x3VW_solo(5)"><v-chip class = "rx-chip">{{vwIPs[5]}}</v-chip></v-img><v-btn id = 'vw2x3-onBtn' size='large' @click = "switch2x3VW('vw2x3_2x3on')" >2x3</v-btn></v-col>
         </v-row>
 
         <v-row v-if = "is2x3VideoWallOn"  id ='vw-2x3'>
@@ -17,8 +17,8 @@
           <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[1]}}</v-chip></v-col>
           <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip> </v-col>
           <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[3]}}</v-chip></v-col>
-          <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[4]}}</v-chip><v-btn id = 'vw2x3-offBtn' icon='mdi-grid' size='x-large' @click = "stateStore.videoWallOff()"></v-btn><v-btn id = 'vw2x3-2x2OnBtn' @click = "switch2x3VW('vw2x3_2x2on')"  size='x-large' >2x2</v-btn> </v-col>
-          <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[5]}}</v-chip><v-btn id = 'vw2x3-onBtn' size='x-large' @click = "switch2x3VW('vw2x3_2x3on')" >2x3</v-btn></v-col>
+          <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[4]}}</v-chip><v-btn id = 'vw2x3-offBtn' icon='mdi-grid' size='large' @click = "stateStore.videoWallOff()"></v-btn><v-btn id = 'vw2x3-2x2OnBtn' @click = "switch2x3VW('vw2x3_2x2on')"  size='large' >2x2</v-btn> </v-col>
+          <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[5]}}</v-chip><v-btn id = 'vw2x3-onBtn' size='large' @click = "switch2x3VW('vw2x3_2x3on')" >2x3</v-btn></v-col>
         </v-row>
 
          <v-row v-if = "is2x2VideoWallOn"  id ='vw-2x3'>
@@ -26,8 +26,8 @@
           <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[1]}}</v-chip></v-col>
           <v-col cols = '4' class = "grid-2x3"><v-img cover :src= bg_image[2] @click = "switch2x3VW_solo(2)"> <v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip> </v-img> </v-col>
           <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[3]}}</v-chip></v-col>
-          <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[4]}}</v-chip><v-btn id = 'vw2x3-offBtn' icon='mdi-grid' size='x-large' @click = "stateStore.videoWallOff()"></v-btn><v-btn id = 'vw2x3-2x2OnBtn' @click = "switch2x3VW('vw2x3_2x2on')"  size='x-large' >2x2</v-btn> </v-col>
-          <v-col cols = '4' class = "grid-2x3"><v-img cover :src= bg_image[5]  @click = "switch2x3VW_solo(5)"><v-chip class = "rx-chip">{{vwIPs[5]}}</v-chip> </v-img><v-btn id = 'vw2x3-onBtn' size='x-large' @click = "switch2x3VW('vw2x3_2x3on')" >2x3</v-btn></v-col>
+          <v-col cols = '4' class = "grid-2x3"><v-chip class = "rx-chip">{{vwIPs[4]}}</v-chip><v-btn id = 'vw2x3-offBtn' icon='mdi-grid' size='large' @click = "stateStore.videoWallOff()"></v-btn><v-btn id = 'vw2x3-2x2OnBtn' @click = "switch2x3VW('vw2x3_2x2on')"  size='large' >2x2</v-btn> </v-col>
+          <v-col cols = '4' class = "grid-2x3"><v-img cover :src= bg_image[5]  @click = "switch2x3VW_solo(5)"><v-chip class = "rx-chip">{{vwIPs[5]}}</v-chip> </v-img><v-btn id = 'vw2x3-onBtn' size='large' @click = "switch2x3VW('vw2x3_2x3on')" >2x3</v-btn></v-col>
         </v-row>
       </v-col>
 
@@ -85,8 +85,9 @@ computed:{
             }
         }
     },
-     switch2x3VW_solo(_index){
+    switch2x3VW_solo(_index){
         this.stateStore.switch1RxOnly = true
+        this.stateStore.switchAllRx = false
         this.stateStore.rxSelected = this.vwIPs[_index]
         localStorage.setItem('rxSelected',this.stateStore.rxSelected )  // set rxSelectedLabel to local storage. For case, user refreshes web page.
         this.$router.push('/videoinputs')
@@ -95,6 +96,7 @@ computed:{
         console.log(_mode)
         this.stateStore.vw2x3Mode = _mode
         this.stateStore.switch1RxOnly = false
+        this.stateStore.switchAllRx = false
         this.stateStore.rxSelected = this.vwIPs[0]
         localStorage.setItem('rxSelected',this.stateStore.rxSelected )  // set rxSelectedLabel to local storage. For case, user refreshes web page.
         this.$router.push('/videoinputs')
@@ -195,7 +197,7 @@ computed:{
   bottom:0px;
   right:0px;
   color:white;
-  background-color: green;
+  background-color: #2196F3;
   z-index: 10;
 }
 #vw2x3-offBtn{
@@ -213,7 +215,7 @@ computed:{
   bottom:0px;
   right:0px;
   color:white;
-  background-color: green;
+  background-color: #2196F3;
   z-index: 10;
 }
 
