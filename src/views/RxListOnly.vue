@@ -16,7 +16,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item,index) in stateStore.rxAssignments" :key="index"  >
+            <tr v-for="(item,index) in stateStore.rxAssignments" :key="index" :class = "rxToBeRemoved.includes(index) ? 'remove' : '' " >
               <td class = 'is_receiver'>{{item.rxId}}</td>
                <td>
                  <v-dialog
@@ -80,7 +80,7 @@
                             @click = "assignZone(_index)"
                           ></v-btn>
                         
-                        <v-btn v-if= "stateStore.rxAssignments[index].vwType == '' "  icon="mdi-delete" color="red" size = "x-large" @click = "clearRx()"></v-btn>
+                        <v-btn v-if= "stateStore.rxAssignments[index].vwType == '' "  icon="mdi-delete" color="red" size = "x-large" @click = "removeRx()"></v-btn>
 
                         </v-card-actions>
                       </v-card>
@@ -121,7 +121,8 @@
         alertChooseZone: false,
         rxIndex:0,
         radioButtonSelected: '',
-        zoneAssigned:''
+        zoneAssigned:'',
+        rxToBeRemoved:[]
     }),
     computed:{
     
@@ -135,10 +136,12 @@
     updateRxName(){
       this.stateStore.rxAssignments[this.rxIndex].name = this.stateStore.rxAssignments[this.rxIndex].name
     },
-    clearRx(){
+    removeRx(){
       this.stateStore.rxAssignments[this.rxIndex].name = ''
       this.stateStore.rxAssignments[this.rxIndex].zone = ''
       this.stateStore.rxAssignments[this.rxIndex].zoneId = ''
+      this.rxToBeRemoved.push(this.rxIndex)
+      console.log(this.rxToBeRemoved)
       this.open = false
     },
     radioButtonClicked(_zoneAssigned,_index,){
@@ -164,8 +167,10 @@
     },
     save(){
       // save to Pi Server file UserTvNames.txt
-        const serverURL = '192.168.1.173:3000'
-        // const serverURL = `${location.hostname}:3000`
+        const serverURL = `${this.stateStore.serverURL}`
+        // remove the rxAssignment as indicated in rxToBeRemoved[]
+          this.stateStore.rxAssignments = this.stateStore.rxAssignments.filter((item,index) => !this.rxToBeRemoved.includes(index))
+          console.log(this.stateStore.rxAssignments)
         //Send to Express to save in 'UserTvNames.txt'
           fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
           .then((data)=>{
@@ -215,6 +220,12 @@ td{
 }
 .is_host{
   border-left: 5px solid blue;
+}
+.remove{
+   text-decoration: line-through;
+   color:red;
+   font-size: 1.4em;
+   
 }
 
 

@@ -14,7 +14,7 @@
                           </v-row>
                       </v-container>
                  </v-app-bar-title>
-                <v-chip>PRODSX 1.2</v-chip>
+                <v-chip>PRODSX 1.3</v-chip>
                 <!-- <v-btn icon="mdi-upload" @click= "this.$router.push('/accesscontrol')"></v-btn> -->
           
   </v-app-bar>

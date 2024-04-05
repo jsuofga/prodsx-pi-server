@@ -1,6 +1,6 @@
 <template>
   
-  <v-container id="myContainer" fluid  >
+  <v-container id="myContainer" fluid >
     <v-row  v-if = "showSave" class = "mx-3">
       <v-col></v-col>
       <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "d-flex flex-column justify-center text-red" >  
@@ -74,17 +74,24 @@
           this.stateStore.nodeQueryList_dump.forEach((item,index)=>{
              if(item.is_host == 'n'){  //for RX devices
                let rxDetected = {rxId: item.ip, name:'', zoneId:'', zone:'',vwName:'',vwType:''}
-               this.stateStore.rxAssignments.push(rxDetected);
- 
+              
+              // if rxDetected is not already in the rxAssignments[] , then push in new rxDetected 
+              if (!this.stateStore.rxAssignments.some(item => item.rxId === rxDetected.rxId)) {
+                  this.stateStore.rxAssignments.push(rxDetected);
+                }
+              
              }else if(item.is_host == 'y'){ //for TX devices
                 let tx = {txId: item.ip, name:`Video${index+1}`}
                 sourceNames.push(tx) 
              }
           })
+          // Remove TX and RX from rxAssignments that are not detected
           //Send to Express to save in 'UserTvNames.txt', 'UserInputNames'
          await  fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
          await  fetch(`http://${serverURL}/write/UserInputNames/${JSON.stringify(sourceNames)}`)
+
          this.$router.push('/')
+
       
     },
     cancel:function(){
@@ -95,6 +102,7 @@
   async created(){
       this.stateStore.showSideMenu = false
       await this.stateStore.getNodeQuery() //call immediatly 1st 
+      this.stateStore.get_UserTvNames() 
       this.showSave = true
     },
     beforeUnmount(){
@@ -108,9 +116,10 @@
 
 #myContainer{
   position: relative; 
-  height:100vh;
-  background-color: whitesmoke;
+  height:100vh; 
+   background-color: whitesmoke;
 }
+
 #progress{
   color: #1E88E5;
   position:absolute;
@@ -120,7 +129,6 @@
 #device-table{
   margin-top:20px;
   width:100%;
-
 }
 .is_receiver{
    border-left: 5px solid orange;
