@@ -9,10 +9,6 @@
             </v-col>
        </v-row>
     </div>
-    <div v-else>
-          <h3 class = "text-white">{{stateStore.vwSelected}}</h3>
-          <VideoWalls></VideoWalls>
-    </div>
 
   </v-container>
 </template>
@@ -21,11 +17,10 @@
 
   import { useStateStore} from '@/stores/StateStore'
   import DisplayRX from '@/components/DisplayRX.vue'
-  import VideoWalls from '@/components/VideoWalls.vue'
 
   export default {
     name: "ZoneView",
-    components: {DisplayRX,VideoWalls},
+    components: {DisplayRX},
     setup(){
       // Pinia
         const stateStore = useStateStore()

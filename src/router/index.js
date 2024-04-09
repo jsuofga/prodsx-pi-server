@@ -139,7 +139,7 @@ const routes = [
       },
     ],
   },
-
+ 
   {
     path: '/zoneview',
     component: () => import('@/layouts/default/Default.vue'),
@@ -159,6 +159,28 @@ const routes = [
         path: '/videowallview',
         name: 'VideowallView',
         component: () => import(/* webpackChunkName: "home" */ '@/views/VideowallView.vue'),
+      },
+    ],
+  },
+  {
+    path: '/additach',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/additach',
+        name: 'AddItach',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/AddItach.vue'),
+      },
+    ],
+  },
+  {
+    path: '/remotecontrol',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/remotecontrol',
+        name: 'RemoteControl',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/RemoteControlView.vue'),
       },
     ],
   },

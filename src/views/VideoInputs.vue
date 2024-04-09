@@ -1,6 +1,5 @@
 <template>
   <v-container id = "container" fluid class="fill-height d-flex flex-column" >
-
           <div id='inner-div' v-click-outside = "onClickOutside">
                <v-row id = 'rx-preview-container' class = "d-flex justify-center text-white">  
                     <PreviewRX :rxIP = 'stateStore.rxSelected' />
@@ -40,7 +39,7 @@
                </v-row>
                <v-row class="myRow d-flex align-center">
                     <v-col  v-for="(item,index) in stateStore.txAssignments"  :key="index" class ="d-flex justify-center pl-0">
-                         <SourceTX :txLabel= 'stateStore.txAssignments[index].name' :txIP = 'item.txId'/>
+                         <SourceTX :txIndex = index  :txLabel= 'stateStore.txAssignments[index].name' :txIP = 'item.txId'/>
                     </v-col>
                </v-row> 
          </div>
@@ -54,7 +53,7 @@
   import SourceTX from '@/components/SourceTX.vue'
   import PreviewRX from '@/components/PreviewRX.vue'
   export default {
-    name: "Vault",
+    name: "VideoInputs",
     components: {SourceTX, PreviewRX},
     setup(){
       // Pinia

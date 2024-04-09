@@ -94,18 +94,13 @@ export default {
    
 //Life Cycle Hooks
   async created(){
-        this.stateStore.showSideMenu = false
+      this.stateStore.showSideMenu = false
   },
    mounted(){
-    //   this.myTimeout =   setTimeout(() => {
-    //   this.ipaddress = this.stateStore.ipAddressOfCiscoSwitch
-    // }, 1000);
-
  
   },
   beforeUnmount(){
-    // console.log('clearTimeout')
-    // clearTimeout(this.myTimeout)
+
   }
   
 

@@ -54,23 +54,13 @@ export default {
     }
   },
   computed:{
-    // alert:function(){
-    //   if(this.zonename==''){
-    //     return true
-    //   }else{
-    //     return false
-    //   }
-
-    // }
 
   },
  methods: {
  
     add:function(){
       if(this.zonename ==''){
-        // this.alert = true
       }else{
-        // this.alert = false
         this.stateStore.zoneNames.push(this.zonename)
         this.zonename = ''
           

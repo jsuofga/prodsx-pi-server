@@ -9,13 +9,15 @@ import { defineStore } from 'pinia'
 export const useStateStore = defineStore('stateStore', {
     // other options...
     state: () => ({ 
-        serverURL: `${location.hostname}:3000`,
-        // serverURL: `${'192.168.1.173'}:3000`,
+        // serverURL: `${location.hostname}:3000`,
+        serverURL: `${'192.168.1.173'}:3000`,
         showSideMenu:false,
         showProgress: true,
         zoneNames:[],
         vwList:[],
         rxAssignments:[],
+        iTachUnits:[],
+        remoteSelectedIndex:0,
         zoneSelected:'',
         vwSelected : '',
         vwTypeSelected:'',
@@ -347,6 +349,25 @@ export const useStateStore = defineStore('stateStore', {
         })
 
       },
+
+     async get_UserItachIPs(){
+        this.iTachUnits = []
+        // Read from Server
+          fetch(`http://${this.serverURL}/read/UserItachIPs`, {method: 'GET',})
+          .then(response => response.json())
+          .then(result => {
+            console.log('Success:', result);
+             let item;
+             for( item in result){
+               this.iTachUnits.push(result[item])
+             }
+             console.log(this.iTachUnits)
+             
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+    },
             
     },
   })

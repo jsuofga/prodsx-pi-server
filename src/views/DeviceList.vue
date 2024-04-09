@@ -89,9 +89,7 @@
           //Send to Express to save in 'UserTvNames.txt', 'UserInputNames'
          await  fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
          await  fetch(`http://${serverURL}/write/UserInputNames/${JSON.stringify(sourceNames)}`)
-
          this.$router.push('/')
-
       
     },
     cancel:function(){
@@ -119,7 +117,6 @@
   height:100vh; 
    background-color: whitesmoke;
 }
-
 #progress{
   color: #1E88E5;
   position:absolute;

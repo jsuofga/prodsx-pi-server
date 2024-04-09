@@ -4,6 +4,9 @@
        {{txLabel}} 
        <div id='tx-label'>{{txIP}} </div>
       <img  :src= bg_image  width="190" aspect-ratio="16/9" > 
+      
+      <v-btn id = "remote-select"  icon="mdi-remote" color = "blue" @click = "selectRemote()"></v-btn>
+
     </button>
 
 </template>
@@ -14,7 +17,7 @@ import { useStateStore} from '@/stores/StateStore'
 
 export default {
   name: "SourceTX",
-  props:['txLabel','txIP'],
+  props:['txIndex','txLabel','txIP'],
   components:{},
 
   setup(){
@@ -56,6 +59,11 @@ export default {
       
       
     },
+    selectRemote(){
+       this.stateStore.remoteSelectedIndex = this.txIndex 
+       localStorage.setItem('remoteSelectedIndex', this.stateStore.remoteSelectedIndex )  // save  to local storage. For case, user refreshes web page.
+       this.$router.push('/remotecontrol')
+    },
     changeBackgroundImage(){
           this.bg_image = `http://${this.txIP}/capture.jpg`+'?' + Date.now();
     },
@@ -67,11 +75,8 @@ export default {
     fetch(`http://${this.txIP}/cgi-bin/query.cgi?cmd=capture_pic &`)  // Initiate PRO DSX to start getting jpg 
     this.snapShot = setInterval(this.changeBackgroundImage,2500)  // Update the html img tag every 2500 ms
   },
-
   beforeUnmount(){
      console.log('stop snapshot')
-    //  console.log(`http://${this.stateStore.rxSelected}/cgi-bin/query.cgi?cmd=killall capture_pic`)
-    //  fetch(`http://${this.stateStore.rxSelected}/cgi-bin/query.cgi?cmd=killall capture_pic`)
      fetch(`http://${this.txIP}/cgi-bin/query.cgi?cmd=killall capture_pic`)
      clearInterval(this.snapShot)
   }
@@ -108,6 +113,12 @@ button:hover{
   top:0;
   left: 0.8em;;
   font: 0.8em sans-serif;
+}
+
+#remote-select{
+  position: absolute;
+  bottom:-7.5%;
+  right:-7.5%
 }
 
 

@@ -6,6 +6,7 @@
                   <v-list-item link prepend-icon="mdi-gamepad-circle" title="Zones Add|Edit" @click= "this.$router.push('/addzones')"></v-list-item>
                   <v-list-item link prepend-icon="mdi-television" title="Receivers Edit" @click= "this.$router.push('/rxlistonly')"></v-list-item>
                   <v-list-item link prepend-icon="mdi-grid-large" title="Video Walls Add|Edit" @click= "this.$router.push('/addvideowalls')"></v-list-item>
+                  <v-list-item link prepend-icon="mdi-grid-large" title="ITach|Edit" @click= "this.$router.push('/additach')"></v-list-item>
                   <v-list-item link prepend-icon="mdi-upload" title="Update Software" @click= "this.$router.push('/update')"></v-list-item>
       </v-navigation-drawer>
 </template>

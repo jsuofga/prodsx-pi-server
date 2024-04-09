@@ -37,7 +37,6 @@ export default {
     localStorage.setItem('rxSelectedLabel','')  
     localStorage.setItem('vwSelected', this.stateStore.vwSelected) 
     localStorage.setItem('vwTypeSelected', this.stateStore.vwTypeSelected) 
-    // localStorage.setItem('vwList', JSON.stringify(this.stateStore.vwList))
     this.$router.push('/videowallview')
   }   
   },
