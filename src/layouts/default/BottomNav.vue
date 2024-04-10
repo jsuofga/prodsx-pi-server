@@ -1,10 +1,11 @@
 <template>
-<v-bottom-navigation bg-color= "grey-darken-4" height="60" >
-  <v-btn id="button-zones-home" @click= "goHome()">
-    <v-icon size="xxx-large">mdi-gamepad-circle</v-icon>
-  </v-btn>
 
-</v-bottom-navigation>
+  <v-bottom-navigation bg-color= "grey-darken-4" height="60" >
+    <v-btn id="button-zones-home" @click= "goHome()">
+      <v-icon size="xxx-large">mdi-gamepad-circle</v-icon>
+    </v-btn>
+  </v-bottom-navigation>
+  
 </template>
 
 <script >

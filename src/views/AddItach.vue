@@ -40,7 +40,6 @@ export default {
       // Pinia
         const stateStore = useStateStore()
         return {stateStore}
-    
      },
 
     data(){
@@ -50,13 +49,11 @@ export default {
     },
     methods: {
        save:function(){
-
         // Read user inputs and save 
           let itachAddresses = {}
           this.stateStore.iTachUnits.forEach((item,index)=>{
              itachAddresses[`itach${index+1}_ipaddress`] = item ;
           })
-          console.log(itachAddresses)
           // Send to Express to save in 'UserItachIPs.txt'
           fetch(`http://${this.stateStore.serverURL}/write/UserItachIPs/${JSON.stringify(itachAddresses)}`)
           .then((data)=>{
@@ -71,12 +68,11 @@ export default {
      
   },
 //Life Cycle Hooks
-  async created(){
-
+  created(){
 
   },
    mounted(){
-
+   this.stateStore.showSideMenu = false
  
   },
   beforeUnmount(){

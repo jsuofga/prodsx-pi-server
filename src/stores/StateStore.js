@@ -9,8 +9,8 @@ import { defineStore } from 'pinia'
 export const useStateStore = defineStore('stateStore', {
     // other options...
     state: () => ({ 
-        // serverURL: `${location.hostname}:3000`,
-        serverURL: `${'192.168.1.173'}:3000`,
+       // serverURL: `${'192.168.1.173'}:3000`,
+        serverURL: `${location.hostname}:3000`,
         showSideMenu:false,
         showProgress: true,
         zoneNames:[],
@@ -18,6 +18,7 @@ export const useStateStore = defineStore('stateStore', {
         rxAssignments:[],
         iTachUnits:[],
         remoteSelectedIndex:0,
+        irFavChannels:[],
         zoneSelected:'',
         vwSelected : '',
         vwTypeSelected:'',
@@ -368,6 +369,20 @@ export const useStateStore = defineStore('stateStore', {
             console.error('Error:', error);
           });
     },
+
+    async get_UserFavChannels(){
+
+      const serverURL = `${location.hostname}:3000`
+      // Read from Server
+        fetch(`http://${this.serverURL}/read/UserFavChannels`, {method: 'GET',})
+        .then(response => response.json())
+        .then(result => {
+           this.irFavChannels = result
+        }).catch(error => {
+          console.error('Error:', error);
+        });
+
+  },
             
     },
   })

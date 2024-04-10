@@ -184,6 +184,17 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/addchannelfavorites',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/addchannelfavorites',
+        name: 'AddChannelFavorites',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/AddChannelFavorites.vue'),
+      },
+    ],
+  },
   
 ]
 

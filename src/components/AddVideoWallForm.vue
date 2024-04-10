@@ -186,7 +186,7 @@ add: function() {
 <style scoped>
 
 #myCard{
-  width:80%;
+  width:50%;
   margin-bottom:20px
 }
 #buttons-container{
