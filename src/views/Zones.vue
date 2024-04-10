@@ -1,5 +1,15 @@
 <template>
-  <v-container id = 'zones-container' fluid class="fill-height">
+ <v-container v-if = "stateStore.rxAssignments.length == 0 " id = 'home-container' fluid class="fill-height d-flex flex-column justify-center">
+    <h2 class = "text-white">Welcome. Your system needs to be configured.</h2>
+    <h2 class = "text-white">Select Menu and Scan System to begin.</h2>
+  </v-container>
+
+  <v-container v-else-if = "stateStore.zoneNames.length == 0 && stateStore.vwList.length == 0" id = 'home-container' fluid class="fill-height d-flex flex-column justify-center">
+    <h2 class = "text-white">Create Zone and Assign TV's to Zones</h2>
+    <h2 class = "text-white">Select Menu. Goto Zones Add | Edit .</h2>
+  </v-container>
+
+  <v-container v-else  id = 'zones-container' fluid class="fill-height">
       <v-row class = "d-flex justify-center">
           <v-col cols = "3" class = " myCols d-flex justify-center" v-for="(item,index) in stateStore.zoneNames" :key="index">
               <ZoneButton :zoneBtnName = item> </ZoneButton>

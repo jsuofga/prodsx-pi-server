@@ -1,6 +1,6 @@
 <template>
       <v-navigation-drawer v-model= "stateStore.showSideMenu" >
-                  <v-list-item title="PRO DSX " subtitle="Menu Items"></v-list-item>
+                  <v-list-item title="PRO DSX "></v-list-item>
                   <v-divider></v-divider>
                   <v-list-item link prepend-icon="mdi-magnify" title="Scan System" @click= "this.$router.push('/devicelist')"></v-list-item>
                   <v-list-item link prepend-icon="mdi-gamepad-circle" title="Zones Add|Edit" @click= "this.$router.push('/addzones')"></v-list-item>

@@ -1,11 +1,11 @@
 <template>
 
     <button class="button" @click = "selectTX(txIP)">
-       {{txLabel}} 
+       {{txLabel}} -{{allowRemoteControl}}
        <div id='tx-label'>{{txIP}} </div>
       <img  :src= bg_image  width="190" aspect-ratio="16/9" > 
       
-      <v-btn id = "remote-select"  icon="mdi-remote" color = "blue" @click = "selectRemote()"></v-btn>
+      <v-btn v-if = "showRemoteBtn != null" id = "remote-select"  icon="mdi-remote" color = "blue" @click = "selectRemote()"></v-btn>
 
     </button>
 
@@ -17,7 +17,7 @@ import { useStateStore} from '@/stores/StateStore'
 
 export default {
   name: "SourceTX",
-  props:['txIndex','txLabel','txIP'],
+  props:['txIndex','txLabel','txIP','showRemoteBtn'],
   components:{},
 
   setup(){
@@ -29,6 +29,7 @@ export default {
       bg_image: ''
 
   }),
+
   methods: {
     selectTX(_txIP){
       let _txID = ''

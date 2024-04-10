@@ -39,7 +39,7 @@
                </v-row>
                <v-row class="myRow d-flex align-center">
                     <v-col  v-for="(item,index) in stateStore.txAssignments"  :key="index" class ="d-flex justify-center pl-0">
-                         <SourceTX :txIndex = index  :txLabel= 'stateStore.txAssignments[index].name' :txIP = 'item.txId'/>
+                         <SourceTX :txIndex = index  :txLabel= 'stateStore.txAssignments[index].name' :txIP = 'item.txId' :showRemoteBtn = 'showSelectRemoteControl[index]'/>
                     </v-col>
                </v-row> 
          </div>
@@ -59,6 +59,12 @@
       // Pinia
         const stateStore = useStateStore()
         return {stateStore}
+     },
+     computed:{
+          showSelectRemoteControl(){
+          // check how many Global Cache are installed to determn which Video Inputs can have remote access
+          return (Array.from({length: this.stateStore.iTachUnits.length * 3}, (_, i) => i + 1))
+          },
      },
 
     data: () => ({

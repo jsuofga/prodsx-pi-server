@@ -17,6 +17,7 @@ export const useStateStore = defineStore('stateStore', {
         vwList:[],
         rxAssignments:[],
         iTachUnits:[],
+        videoInputsWithRemoteAccess: [],
         remoteSelectedIndex:0,
         irFavChannels:[],
         zoneSelected:'',

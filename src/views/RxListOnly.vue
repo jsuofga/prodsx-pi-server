@@ -162,7 +162,6 @@
         this.open = false
       }
 
- 
 
     },
     save(){

@@ -20,7 +20,7 @@
                     <v-card
                       max-width="400"
                       prepend-icon="mdi-update"
-                      text="Confirm you want to remove Zone"
+                      text="Confirm you want to remove Video Wall"
                       title="Delete Zone ?"
                     >
                       <template v-slot:actions>

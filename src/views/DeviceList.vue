@@ -2,19 +2,23 @@
   
   <v-container id="myContainer" fluid >
     <v-row  v-if = "showSave" class = "mx-3">
-      <v-col></v-col>
+      <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length == 0">
+          <div class = "d-flex justify-start my-3"> <v-btn @click = "rescan" color = "primary">ReScan</v-btn></div>
+      </v-col>
       <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "d-flex flex-column justify-center text-red" >  
          <div class = "d-flex justify-center" >  1. Remove duplicate devices as indicated  </div> 
          <div class = "d-flex justify-center"> 2. Repeat Device List Scan   </div>
          <div class = "d-flex justify-center my-3"> <v-btn v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "mx-3" @click = "rescan" color = "primary">ReScan</v-btn></div>
       </v-col>
-       <v-col v-else></v-col>
+       <v-col v-else class = "d-flex justify-center ">
+        <v-chip color = "orange">TX + RX found = {{stateStore.nodeQueryList_dump.length}}</v-chip> 
+       </v-col>
       <v-col class = "myCols d-flex justify-end "> 
         <v-btn class = "mx-3" @click = "cancel" color = "red">Cancel</v-btn>
         <v-btn v-if = "stateStore.nodeQueryList_ip_duplicates.length == 0"  class = "mx-3 " @click = "saveDeviceList" color = "primary" >SAVE</v-btn>
       </v-col>
     </v-row>
-    <v-progress-circular v-if = "stateStore.showProgress" id = 'progress' indeterminate  model-value="20" :size="80"></v-progress-circular>
+    <v-progress-circular v-if = "stateStore.showProgress" id = 'progress' indeterminate  model-value="20" :size="80" color = "blue"></v-progress-circular>
     <v-table id = 'device-table'>
           <thead>
             <tr>
@@ -66,6 +70,7 @@
         location.reload()
        },
        async saveDeviceList(){
+
         // save to Pi Server file UserTvNames.txt, UserInputNames.txt
         const serverURL = this.stateStore.serverURL
         let sourceNames = []
@@ -85,7 +90,18 @@
                 sourceNames.push(tx) 
              }
           })
-          // Remove TX and RX from rxAssignments that are not detected
+
+          // sort by ascending IP address
+          await this.stateStore.rxAssignments.sort((a, b) => {
+            const numA = a.rxId.split('.').map(Number);
+            const numB = b.rxId.split('.').map(Number);
+            for (let i = 0; i < 4; i++) {
+                if (numA[i] !== numB[i]) {
+                    return numA[i] - numB[i];
+                }
+            }
+            return 0;
+        });
           //Send to Express to save in 'UserTvNames.txt', 'UserInputNames'
          await  fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
          await  fetch(`http://${serverURL}/write/UserInputNames/${JSON.stringify(sourceNames)}`)
@@ -118,7 +134,6 @@
    background-color: whitesmoke;
 }
 #progress{
-  color: #1E88E5;
   position:absolute;
   left:calc(50% - 40px);
   top: 25%;
