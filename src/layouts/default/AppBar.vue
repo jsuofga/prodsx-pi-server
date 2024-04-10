@@ -14,7 +14,7 @@
             </v-row>
           </v-container>
         </v-app-bar-title>
-        <v-chip>PRODSX 0.5</v-chip>
+        <v-chip>PRODSX 0.6</v-chip>
   </v-app-bar>
       <SideMenu></SideMenu>
 

@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div class="update">
-                <h5> Update dist.tar file</h5>
+                <h5 v-if = "!rebooting" > Update dist.tar file</h5>
                     <div v-if= "showFileButton"  id="input">
                     <input v-on:change= "fileSelect" id="file-select-button" type="file" accept= ".tar" >
                 </div>
@@ -11,10 +11,21 @@
                 </div>
 
                 <div v-if= "showProgressBar" id = 'progress-container'>
-                <div class="progress">
-                    <div class="determinate blue" v-bind:style= "{width: completion}"></div>
-                </div>
-                <div class ='progressFeedback'>Uploading {{completion}}</div>
+                  <div class="progress">
+                      <div class="determinate blue" v-bind:style= "{width: completion}"></div>
+                  </div>
+                  <div v-if = "!rebooting" class ='progressFeedback'>Uploading {{completion}}</div>
+                  
+                    <v-progress-circular v-if = "rebooting"
+                      :model-value="value"
+                      :rotate="360"
+                      :size="100"
+                      :width="15"
+                      color="blue"
+                    >
+                      {{ value }}
+                  </v-progress-circular>
+                  <div v-if = "rebooting"> Wait- rebooting</div>
                 </div>
         </div>
 
@@ -42,13 +53,29 @@ export default {
       completion: '0%',
       showFileButton:true,
       showUploadButton: false,
-      showProgressBar : false
+      showProgressBar : false,
+      rebooting: false,
+      interval: {},
+      value: 0,
+
     }
   },
   computed:{
 
   },
   methods:{
+    startTimer(){
+      // wait for 60 seconds while server reboots, then reload and goto page /
+        this.interval = setInterval(() => {
+        this.value = this.value === 100 ? 0 : this.value + 1;
+
+        if(this.value == 100){
+            this.rebooting = false
+             location.reload()
+             setTimeout(function() {this.$router.push('/')}, 1000);
+        }
+      }, 600);
+    },
     fileSelect(event){
       this.showFileButton = false
       this.showUploadButton = true
@@ -79,11 +106,9 @@ export default {
             // JSON responses are automatically parsed.
             console.log(res.status)
             if (res.status === 200) {
-
-              this.stateStore.changePage('home')
-              this.$router.push('/')
-              setTimeout(function(){location.reload()}, 1000);
-             
+              this.rebooting = true
+              this.startTimer()
+           
             } else {
               // Handle the user data here...
               alert('fail')
@@ -109,6 +134,9 @@ export default {
   },
   mounted(){
 
+  },
+  beforeUnmount(){
+    clearInterval(this.interval);
   }
 
 }
@@ -131,7 +159,10 @@ export default {
     /* padding:50px; */
       
 }
+#progress-spinner{
+    color: #1E88E5;
 
+}
 button{
   background-color: rgb(0,122,255);
   padding: .5em .5em;
