@@ -25,7 +25,7 @@
                     >
                       {{ value }}
                   </v-progress-circular>
-                  <div v-if = "rebooting"> Wait- rebooting</div>
+                  <div v-if = "rebooting"> Please Wait. Restarting Controller </div>
                 </div>
         </div>
 
@@ -71,8 +71,8 @@ export default {
 
         if(this.value == 100){
             this.rebooting = false
-             location.reload()
-             setTimeout(function() {this.$router.push('/')}, 1000);
+            this.$router.push('/')
+            setTimeout(function() {location.reload()}, 3000);
         }
       }, 600);
     },
@@ -157,11 +157,6 @@ export default {
 }
 #file-select-button{
     /* padding:50px; */
-      
-}
-#progress-spinner{
-    color: #1E88E5;
-
 }
 button{
   background-color: rgb(0,122,255);
@@ -169,7 +164,6 @@ button{
   border-radius: 1em;
   border: none;
 }
-
 input[type="file"]::file-selector-button {
   padding: .5em .5em;
   border-radius: 1em;
@@ -190,7 +184,6 @@ input[type="file"]::file-selector-button {
 }
 .progressFeedback{
   color:white;
-
 }
 
 
