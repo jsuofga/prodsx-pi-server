@@ -9,8 +9,8 @@ import { defineStore } from 'pinia'
 export const useStateStore = defineStore('stateStore', {
     // other options...
     state: () => ({ 
-       serverURL: `${'192.168.1.173'}:3000`,
-        // serverURL: `${location.hostname}:3000`,
+      //  serverURL: `${'192.168.1.173'}:3000`,
+        serverURL: `${location.hostname}:3000`,
         showSideMenu:false,
         showProgress: true,
         zoneNames:[],
