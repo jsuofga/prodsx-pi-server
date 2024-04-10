@@ -136,6 +136,20 @@ const routes = [
         path: '/rxlistonly',
         name: 'RxListOnly',
         component: () => import(/* webpackChunkName: "home" */ '@/views/RxListOnly.vue'),
+        beforeEnter: (to, from, next) => {
+          let  StateStore = useStateStore(); // <-- passing Pinia instance directly
+
+          StateStore.pageToAuthenticateAndRoute = 'rxlistonly'
+
+          if (to.name !== 'AccessControl' && !StateStore.isAuthenticated) {
+            next({ name: 'AccessControl' });
+          } else {
+            StateStore.isAuthenticated = !StateStore.isAuthenticated
+            next();
+           
+          }
+        }
+        
       },
     ],
   },
@@ -170,6 +184,20 @@ const routes = [
         path: '/additach',
         name: 'AddItach',
         component: () => import(/* webpackChunkName: "home" */ '@/views/AddItach.vue'),
+        beforeEnter: (to, from, next) => {
+          let  StateStore = useStateStore(); // <-- passing Pinia instance directly
+
+          StateStore.pageToAuthenticateAndRoute = 'additach'
+
+          if (to.name !== 'AccessControl' && !StateStore.isAuthenticated) {
+            next({ name: 'AccessControl' });
+          } else {
+            StateStore.isAuthenticated = !StateStore.isAuthenticated
+            next();
+           
+          }
+        }
+        
       },
     ],
   },
@@ -192,6 +220,19 @@ const routes = [
         path: '/addchannelfavorites',
         name: 'AddChannelFavorites',
         component: () => import(/* webpackChunkName: "home" */ '@/views/AddChannelFavorites.vue'),
+        beforeEnter: (to, from, next) => {
+          let  StateStore = useStateStore(); // <-- passing Pinia instance directly
+
+          StateStore.pageToAuthenticateAndRoute = 'addchannelfavorites'
+
+          if (to.name !== 'AccessControl' && !StateStore.isAuthenticated) {
+            next({ name: 'AccessControl' });
+          } else {
+            StateStore.isAuthenticated = !StateStore.isAuthenticated
+            next();
+           
+          }
+        }
       },
     ],
   },

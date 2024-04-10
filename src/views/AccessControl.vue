@@ -67,22 +67,37 @@
   },
   methods: {
  
-    submit:function(){
-      if(this.userInput ==='octava'){
-        this.stateStore.isAuthenticated = true
+submit: function() {
+  if (this.userInput === 'octava') {
+    this.stateStore.isAuthenticated = true;
 
-        if(this.stateStore.pageToAuthenticateAndRoute == 'update'){
-          this.$router.push('/update')
-        }else if(this.stateStore.pageToAuthenticateAndRoute == 'addzones'){
-          this.$router.push('/addzones')
-        }else if (this.stateStore.pageToAuthenticateAndRoute == 'addvideowalls'){
-          this.$router.push('/addvideowalls')
-        }
-      }else{
-        //Not authenticated
-      }
-    
-    },
+    switch (this.stateStore.pageToAuthenticateAndRoute) {
+      case 'update':
+        this.$router.push('/update');
+        break;
+      case 'addzones':
+        this.$router.push('/addzones');
+        break;
+      case 'addvideowalls':
+        this.$router.push('/addvideowalls');
+        break;
+      case 'rxlistonly':
+        this.$router.push('/rxlistonly');
+        break;
+      case 'additach':
+        this.$router.push('/additach');
+        break;
+      case 'addchannelfavorites':
+        this.$router.push('/addchannelfavorites');
+        break;
+      default:
+        // Handle default case if necessary
+        break;
+    }
+  } else {
+    // Not authenticated
+  }
+},
 
     cancel:function(){
        this.$router.push('/')
