@@ -1,7 +1,7 @@
 <template>
 
     <button class="button" @click = "selectTX(txIP)">
-       {{txLabel}} -{{allowRemoteControl}}
+       {{txLabel}}
        <div id='tx-label'>{{txIP}} </div>
       <img  :src= bg_image  width="190" aspect-ratio="16/9" > 
       

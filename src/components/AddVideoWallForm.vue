@@ -20,7 +20,7 @@
           <div class = "d-flex flex-column align-center mx-9">
               <v-icon icon="mdi-view-column-outline" size = large ></v-icon>  
               <v-radio label="1x3" value="1x3"></v-radio>  
-               
+               <small>ClockWise</small>
           </div>
            <div class = "d-flex flex-column align-center mx-9">
                <v-icon icon="mdi-grid-large" size = large ></v-icon>  
@@ -186,7 +186,7 @@ add: function() {
 <style scoped>
 
 #myCard{
-  width:50%;
+  width:80%;
   margin-bottom:20px
 }
 #buttons-container{

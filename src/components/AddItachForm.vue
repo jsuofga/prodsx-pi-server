@@ -18,12 +18,10 @@
               </v-form>
             </v-card-text>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="primary" text @click= "submit">
-                ADD
-              </v-btn>
-            </v-card-actions>
+            <v-row v-if = "isValidIP" id = "buttons-container" class = "d-flex flex-column justify-center align-center">
+              <div>Add</div>
+              <v-btn color = "green"  icon="mdi-arrow-down-bold" @click = "submit" size="large"></v-btn>
+            </v-row>
         </v-card>
 
     </v-container>
@@ -53,7 +51,12 @@ export default {
     }
   },
   computed:{
-      
+      isValidIP(){
+          if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(this.ipAddress)) {  
+            return (true)  
+          }
+
+      }
 
   },
  methods: { 
@@ -92,7 +95,7 @@ export default {
   width:80%;
 }
 #buttons-container{
-  margin:20px;
+  margin-bottom:20px;
   /* border: 1px solid green; */
 
 }

@@ -22,7 +22,7 @@
                       max-width="400"
                       prepend-icon="mdi-update"
                       text="Confirm you want to remove Fav Ch"
-                      title="Fav Ch ?"
+                      title="Delete Fav Ch ?"
                     >
                       <template v-slot:actions>
                         <v-btn 

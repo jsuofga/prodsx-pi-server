@@ -1,6 +1,6 @@
 <template>
     <v-container id = 'container'>
-      <v-row id = 'title' class = "d-flex justify-center text-white" ><h3>{{stateStore.vwSelected}}-{{is1x3VideoWallOn}}</h3></v-row>
+      <v-row id = 'title' class = "d-flex justify-center text-white" ><h3>{{stateStore.vwSelected}}</h3></v-row>
        <v-col id = 'vw-container' >
         <v-row v-if = "is1x3VideoWallOn" id ='vw-1x3'  > 
           <v-chip id = "rx-chip-1">{{vwIPs[0]}}</v-chip> 

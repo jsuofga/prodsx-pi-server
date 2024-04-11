@@ -81,6 +81,7 @@ export default {
  methods: {
     trash:function(_itachIndex){
          this.stateStore.iTachUnits.splice(_itachIndex,1)
+         this.dialog = false
      },
 
 

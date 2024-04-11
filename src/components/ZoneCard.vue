@@ -89,6 +89,7 @@ export default {
     },
      trash:function(_zoneIndex){
          this.stateStore.zoneNames.splice(_zoneIndex,1)
+         this.dialog = false
      },
     cancel:function(){
        this.$router.push('/')

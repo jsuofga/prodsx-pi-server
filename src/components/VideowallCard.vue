@@ -21,7 +21,7 @@
                       max-width="400"
                       prepend-icon="mdi-update"
                       text="Confirm you want to remove Video Wall"
-                      title="Delete Zone ?"
+                      title="Delete Video Wall ?"
                     >
                       <template v-slot:actions>
                         <v-btn 
@@ -106,6 +106,7 @@ export default {
              this.stateStore.rxAssignments[index].vwType = ''
            }
        })
+       this.dialog = false
        this.stateStore.get_vwList()
      },
     cancel:function(){
