@@ -117,7 +117,7 @@ computed:{
 }
 @media only screen and (min-width: 48em){
   #capture-scaled1x3{
-    transform: rotate(90deg) scale(1.8,1.7) translate(-0%,-33.3%);
+    transform: rotate(90deg) scale(1.8,1.8) translate(-0%,-33.3%);
     z-index:0
   }
 }

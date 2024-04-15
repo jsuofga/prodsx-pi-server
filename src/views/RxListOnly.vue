@@ -3,7 +3,7 @@
   <v-container id="myContainer" fluid  >
     <v-row  class = " d-flex justify-end my-3">
       <v-btn class = "mx-3" @click = "cancel" color = "red">Cancel</v-btn>
-      <v-btn class = "mx-3 " @click = "save" color = "primary" >SAVE</v-btn>
+      <v-btn class = "mx-3 " @click = "save" color = "blue" >SAVE</v-btn>
     </v-row>
      <v-table id = 'device-table' >
           <thead>
@@ -73,7 +73,7 @@
                           <v-spacer></v-spacer>
 
                           <v-btn
-                            color="primary"
+                            color="blue"
                             prepend-icon="mdi-check-circle"
                             text="Assign"
                             variant="flat"
@@ -118,10 +118,7 @@
 
     data: () => ({
         open : false,
-        alertChooseZone: false,
         rxIndex:0,
-        radioButtonSelected: '',
-        zoneAssigned:'',
         rxToBeRemoved:[]
     }),
     computed:{

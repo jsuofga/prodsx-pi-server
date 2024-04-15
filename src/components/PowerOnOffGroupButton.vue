@@ -1,5 +1,5 @@
 <template>
-        <v-btn-toggle id = 'group-btn' >
+        <v-btn-toggle id = 'group-btn' rounded="xl"  variant="outlined"   >
             <v-btn size = "x-large"  @click = "powerAll('on')" >
                 <v-icon color="green">mdi-power</v-icon>
                 <small class = "text-green">ON</small>
@@ -9,7 +9,6 @@
                 <v-icon color="red">mdi-power</v-icon> 
                 <small class = "text-red">Off</small>
             </v-btn>
-               
       </v-btn-toggle>
 
 </template>
@@ -33,6 +32,7 @@
   methods: {
     powerAll(_onOff){
       this.stateStore.power_cec(_onOff)
+      this.stateStore.snackbar = true
     }
     
   },
@@ -41,7 +41,7 @@
   created(){
 
   },
-   mounted(){
+  mounted(){
 
  
   },
@@ -59,6 +59,7 @@
   position:absolute;
   bottom:20px;
   left:20px;
+
 }
 
 

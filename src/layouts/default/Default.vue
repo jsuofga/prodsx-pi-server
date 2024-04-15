@@ -19,5 +19,6 @@
 <style scoped>
  #myApp {
   background-color: #424242 ;
+  
  }
 </style>

@@ -41,6 +41,7 @@ export const useStateStore = defineStore('stateStore', {
         nodeQueryList_rx_not_found:[],
         txAssignments:[],
         rxParams:{},
+        cecTVstatus: ''
             
      }),
      getters:{
@@ -52,10 +53,12 @@ export const useStateStore = defineStore('stateStore', {
           const cec_off = `cec_send E0:36` 
           const cec_on = `cec_send E0:04`
           if(_onOff == 'on'){
+            this.cecTVstatus = 'ON'
             for(let item of this.rxAssignments ){
               fetch(`http://${item.rxId}/cgi-bin/query.cgi?cmd=${cec_on}`)
             }
           }else{
+            this.cecTVstatus = 'OFF'
             for(let item of this.rxAssignments ){
               fetch(`http://${item.rxId}/cgi-bin/query.cgi?cmd=${cec_off}`)
             }
@@ -312,7 +315,8 @@ export const useStateStore = defineStore('stateStore', {
             });
         },
         async get_UserInputNames(){
-            this.rxAssignments=[]
+          console.log('get Input')
+            this.txAssignments=[]
           // Read from Server
             fetch(`http://${this.serverURL}/read/UserInputNames`, {method: 'GET',})
             .then(response => response.json())
@@ -321,7 +325,7 @@ export const useStateStore = defineStore('stateStore', {
                 for( item in result){
                   this.txAssignments.push(result[item])
                 }
-                // console.log('txAssignments = ',this.txAssignments)
+                console.log('txAssignments = ',this.txAssignments)
             })
             .catch(error => {
               console.error('Error:', error);

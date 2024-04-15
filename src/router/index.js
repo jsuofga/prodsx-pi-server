@@ -153,6 +153,31 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/txlistonly',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/txlistonly',
+        name: 'TxListOnly',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/TxListOnly.vue'),
+        beforeEnter: (to, from, next) => {
+          let  StateStore = useStateStore(); // <-- passing Pinia instance directly
+
+          StateStore.pageToAuthenticateAndRoute = 'txlistonly'
+
+          if (to.name !== 'AccessControl' && !StateStore.isAuthenticated) {
+            next({ name: 'AccessControl' });
+          } else {
+            StateStore.isAuthenticated = !StateStore.isAuthenticated
+            next();
+           
+          }
+        }
+        
+      },
+    ],
+  },
  
   {
     path: '/zoneview',

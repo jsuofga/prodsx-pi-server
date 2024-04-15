@@ -2,20 +2,19 @@
   
   <v-container id="myContainer" fluid >
     <v-row  v-if = "showSave" class = "mx-3">
-      <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length == 0">
-          <div class = "d-flex justify-start my-3"> <v-btn @click = "rescan" color = "primary">ReScan</v-btn></div>
+      <v-col >
+          <div class = "d-flex justify-start my-3"> <v-btn @click = "rescan" color = "blue">ReScan</v-btn></div>
       </v-col>
       <v-col v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "d-flex flex-column justify-center text-red" >  
          <div class = "d-flex justify-center" >  1. Remove duplicate devices as indicated  </div> 
          <div class = "d-flex justify-center"> 2. Repeat Device List Scan   </div>
-         <div class = "d-flex justify-center my-3"> <v-btn v-if = "stateStore.nodeQueryList_ip_duplicates.length != 0" class = "mx-3" @click = "rescan" color = "primary">ReScan</v-btn></div>
       </v-col>
        <v-col v-else class = "d-flex justify-center ">
-        <v-chip color = "orange">TX + RX found = {{stateStore.nodeQueryList_dump.length}}</v-chip> 
+        <v-chip  variant = "flat" >TX + RX found = {{stateStore.nodeQueryList_dump.length}}</v-chip> 
        </v-col>
       <v-col class = "myCols d-flex justify-end "> 
         <v-btn class = "mx-3" @click = "cancel" color = "red">Cancel</v-btn>
-        <v-btn v-if = "stateStore.nodeQueryList_ip_duplicates.length == 0"  class = "mx-3 " @click = "saveDeviceList" color = "primary" >SAVE</v-btn>
+        <v-btn v-if = "stateStore.nodeQueryList_ip_duplicates.length == 0"  class = "mx-3 " @click = "saveDeviceList" color = "blue" >SAVE</v-btn>
       </v-col>
     </v-row>
     <v-progress-circular v-if = "stateStore.showProgress" id = 'progress' indeterminate  model-value="20" :size="80" color = "blue"></v-progress-circular>
@@ -30,15 +29,15 @@
           </thead>
           <tbody>
             <tr v-for= "(item,index) in stateStore.nodeQueryList_dump" :key="index"  >
-              <td class = 'is_receiver' :class= "{ is_host: item.is_host == 'y' }" >
-                {{item.ip}}
-                <v-chip v-if = "stateStore.nodeQueryList_ip_duplicates.includes(item.ip)" color="red" >  Duplicate!</v-chip>
+
+              <td >
+                <v-chip class = 'is_receiver' :class= "{ is_host: item.is_host == 'y' }" @click = 'openBrowser(item.ip)'  variant="outlined">{{item.is_host == 'y'? 'TX': 'RX'}}-{{item.ip}}</v-chip>
+                <v-chip v-if = "stateStore.nodeQueryList_ip_duplicates.includes(item.ip)" color="red" > Duplicate!</v-chip>
               </td>
               <td>{{item.mcu_version}}</td>
               <td>{{item.fw_build}}</td>
               <td>{{item.mac}}</td>
-              <td v-if = "item.is_host == 'y' "  @click = 'openURL(deviceListDump[index].ip)'><v-btn>TX</v-btn></td>
-              <td v-else @click = 'openURL(deviceListDump[index].ip)'><v-btn>RX</v-btn> </td>
+  
             </tr>
           </tbody>
       </v-table> 
@@ -66,6 +65,9 @@
     
     },
     methods: {
+      openBrowser(_url){
+        window. open(`http://${_url}`)
+      },
        rescan(){
         location.reload()
        },
@@ -73,7 +75,6 @@
 
         // save to Pi Server file UserTvNames.txt, UserInputNames.txt
         const serverURL = this.stateStore.serverURL
-        let sourceNames = []
 
           // Add in detected TX and RX
           this.stateStore.nodeQueryList_dump.forEach((item,index)=>{
@@ -86,12 +87,15 @@
                 }
               
              }else if(item.is_host == 'y'){ //for TX devices
-                let tx = {txId: item.ip, name:`Video${index+1}`}
-                sourceNames.push(tx) 
+              // if txDetected is not already in the txAssignments[] , then push in new rxDetected 
+              let txDetected = {txId: item.ip, name:`Video${index+1}`}
+              if (!this.stateStore.txAssignments.some(item => item.txId === txDetected.txId)) {
+                  this.stateStore.txAssignments.push(txDetected);
+                }
              }
           })
 
-          // sort by ascending IP address
+          // sort RX by ascending IP address
           await this.stateStore.rxAssignments.sort((a, b) => {
             const numA = a.rxId.split('.').map(Number);
             const numB = b.rxId.split('.').map(Number);
@@ -102,12 +106,26 @@
             }
             return 0;
         });
+
+         // sort TX by ascending IP address
+          await this.stateStore.txAssignments.sort((a, b) => {
+            const numA = a.txId.split('.').map(Number);
+            const numB = b.txId.split('.').map(Number);
+            for (let i = 0; i < 4; i++) {
+                if (numA[i] !== numB[i]) {
+                    return numA[i] - numB[i];
+                }
+            }
+            return 0;
+        });
+
           //Send to Express to save in 'UserTvNames.txt', 'UserInputNames'
          await  fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
-         await  fetch(`http://${serverURL}/write/UserInputNames/${JSON.stringify(sourceNames)}`)
+         await  fetch(`http://${serverURL}/write/UserInputNames/${JSON.stringify(this.stateStore.txAssignments)}`)
          this.$router.push('/')
       
     },
+
     cancel:function(){
       this.$router.push('/')
     }
@@ -143,10 +161,10 @@
   width:100%;
 }
 .is_receiver{
-   border-left: 5px solid orange;
+  color:orange;
 }
 .is_host{
-  border-left: 5px solid blue;
+  color:#809CC0
 }
 #alert-duplicate{
   position: absolute;

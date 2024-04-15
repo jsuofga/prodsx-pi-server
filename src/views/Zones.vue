@@ -20,6 +20,22 @@
       </v-row>
       <PowerOnOffGroupButton></PowerOnOffGroupButton>
       <SelectAllButton></SelectAllButton> 
+
+      <v-snackbar
+            v-model="stateStore.snackbar"
+            :timeout="3000"
+            :color="stateStore.cecTVstatus == 'ON' ? 'green' : 'red'"
+          
+        >    
+            <div >
+                  Powering Displays {{this.stateStore.cecTVstatus}}
+            </div>
+
+
+            <template>
+                  <v-btn color="white" variant="text"></v-btn>
+            </template>
+        </v-snackbar>
   </v-container>
 </template>
 

@@ -34,7 +34,6 @@
                     </v-card>
                   </v-dialog>
               <input id = "input" class = 'inputFont' @keyup = "updateZoneName('stateStore.zoneNames[zoneIndex]')" type="text" v-model = 'stateStore.zoneNames[zoneIndex]' maxlength="10"> 
-              <!-- <v-btn id = "update-btn" v-if = "isUpdate" color = 'primary'><v-icon>mdi-upload</v-icon>Update</v-btn> -->
         </div>
 
     </v-container>

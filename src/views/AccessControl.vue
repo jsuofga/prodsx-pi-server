@@ -84,6 +84,9 @@ submit: function() {
       case 'rxlistonly':
         this.$router.push('/rxlistonly');
         break;
+      case 'txlistonly':
+        this.$router.push('/txlistonly');
+        break;
       case 'additach':
         this.$router.push('/additach');
         break;

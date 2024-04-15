@@ -16,7 +16,7 @@
 
      <v-row class = " myRow d-flex justify-center ma-6"> 
         <v-btn class = " ma-6" color = "red" @click = "cancel" >Cancel</v-btn>
-        <v-btn class = " ma-6"  color = "primary" @click = "save" >Save</v-btn>
+        <v-btn class = " ma-6"  color = "blue" @click = "save" >Save</v-btn>
     </v-row>
 
   </v-col> 
