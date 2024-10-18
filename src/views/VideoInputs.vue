@@ -1,6 +1,6 @@
 <template>
   <v-container id = "container" fluid class="fill-height d-flex flex-column" >
-          <div id='inner-div' v-click-outside = "onClickOutside">
+          <div id='inner-div' v-click-outside = "onClickOutside" >
                <v-row id = 'rx-preview-container' class = "d-flex justify-center text-white">  
                     <PreviewRX :rxIP = 'stateStore.rxSelected' />
                </v-row>
@@ -27,6 +27,12 @@
                          <v-btn color="white" variant="text"></v-btn>
                     </template>
                </v-snackbar>
+
+                <!-- RX Volume section -->
+                 <v-row class='d-flex justify-center mt-6 '>
+                    <input @change = "changeVolume()" type="range" min="1" max="100" v-model = "rxVolume">
+                    <label class = 'text-white' for="volume"> <small>2CH Audio Volume-{{ rxVolume }}</small></label>
+                 </v-row>
 
                <v-row v-if = "stateStore.vwSelected == '' && stateStore.switchAllRx == false" id = "rx-label" class='d-flex justify-center pa-6 myCol'>
                     Select Video for - {{stateStore.rxSelectedLabel}}
@@ -68,18 +74,41 @@
      },
 
     data: () => ({
-        active:false
+        active:false,
+        rxVolume: '10'
+
     }),
 
     methods: {
       onClickOutside() {
           this.stateStore.vwSelected == '' ?  this.$router.push(`/zoneview`) : this.$router.push(`/videowallview`)
       },
+      getVolume() {
+      fetch(`http://${this.stateStore.rxSelected}/cgi-bin/query.cgi?cmd=cat /sys/devices/platform/1500_i2s/analog_out_vol`)
+            .then( res => {
+                return res.text()
+            })
+            .then( data => {
+                this.rxVolume =data.trim();
+            })
+            .catch((error) => {
+              console.log('error')
+            });
+    
+  },
+    changeVolume(){
+      fetch(`http://${this.stateStore.rxSelected}/cgi-bin/query.cgi?cmd=echo ${this.rxVolume} > /sys/devices/platform/1500_i2s/analog_out_vol`)
+     
+    },
 
     },
      created(){
+          this.getVolume()
+          this.getVolumeStatus = setInterval(this.getVolume,5000)
+
      },
      beforeUnmount(){
+          clearInterval(this.getVolumeStatus)
 
      }
 

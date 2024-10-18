@@ -285,7 +285,7 @@ export const useStateStore = defineStore('stateStore', {
             .then(response => response.json())
             .then(result => {
                this.zoneNames = {...result}
-               console.log('zone is:',this.zoneNames, Object.keys(this.zoneNames).length )
+              //  console.log('zone is:',this.zoneNames, Object.keys(this.zoneNames).length )
               })
             .catch(error => {
               console.error('Error:', error);
@@ -316,8 +316,6 @@ export const useStateStore = defineStore('stateStore', {
             fetch(`http://${this.serverURL}/read/UserInputNames`, {method: 'GET',})
             .then(response => response.json())
             .then(result => {
-                console.log("zombie :UserInputNames:", result)
-
                 let item;
                 for( item in result){
                   this.txAssignments.push(result[item])

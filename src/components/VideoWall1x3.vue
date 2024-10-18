@@ -26,6 +26,13 @@
                 <v-btn color="white" variant="text"></v-btn>
           </template>
       </v-snackbar>
+
+      <!-- RX Volume section -->
+          <v-row class='d-flex justify-center mt-6 '>
+                  <input @change = "changeVolume()" type="range" min="1" max="100" v-model = "rxVolume">
+                  <label class = 'text-white' for="volume"> <small>2CH Audio Volume-{{ rxVolume }}-RX{{vwIPs[0].split('.').pop()}}</small></label>
+          </v-row>
+
     </v-container>
 </template>
 
@@ -44,7 +51,9 @@ export default {
   data () {
     return {
       bg_image: [],
-      vwIPs:[]
+      vwIPs:[],
+      rxVolume: '10'
+
         
     }
   },
@@ -56,6 +65,23 @@ computed:{
 
 },
  methods: {  
+    getVolume() {
+      fetch(`http://${this.vwIPs[0]}/cgi-bin/query.cgi?cmd=cat /sys/devices/platform/1500_i2s/analog_out_vol`)
+            .then( res => {
+                return res.text()
+            })
+            .then( data => {
+                this.rxVolume =data.trim();
+            })
+            .catch((error) => {
+              console.log('error')
+            });
+    
+  },
+    changeVolume(){
+      fetch(`http://${this.vwIPs[0]}/cgi-bin/query.cgi?cmd=echo ${this.rxVolume} > /sys/devices/platform/1500_i2s/analog_out_vol`)
+     
+    },
     changeBackgroundImage(){
          for(const [index,item] of this.vwIPs.entries()){
             try{
@@ -85,6 +111,9 @@ computed:{
     }
     this.changeBackgroundImage() // get snapshot immediately
     this.snapShot = setInterval(this.changeBackgroundImage,2500)  // Update the html img tag every 2500 ms
+    this.getVolume()
+    this.getVolumeStatus = setInterval(this.getVolume,5000)
+
   },
  mounted(){
       for(let item of this.vwIPs){
@@ -99,6 +128,8 @@ computed:{
         fetch(`http://${item}/cgi-bin/query.cgi?cmd=killall capture_pic`, {method: 'GET',})
     }
      clearInterval(this.snapShot)
+     clearInterval(this.getVolumeStatus)
+
 
   }
 

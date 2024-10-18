@@ -50,10 +50,9 @@
                         <v-divider class="mt-3"></v-divider>
                         <v-card-text>  
                           <div>Name for RX - {{stateStore.rxAssignments[rxIndex].rxId}} </div>   
-                          <input id = "input" class = 'inputFont' @keyup = "updateRxName()" type="text" v-model = 'stateStore.rxAssignments[rxIndex].name' maxlength="10"> 
+                          <input id = "input" class = 'inputFont' @keyup = "updateRxName()" type="text" v-model = 'stateStore.rxAssignments[rxIndex].name' maxlength="10"  :style="{ borderColor: stateStore.rxAssignments[rxIndex].name == '' ? 'red' : 'black' }"> 
                         </v-card-text>
                         <div v-if = "stateStore.rxAssignments[rxIndex].name == ''" class = "d-flex justify-center text-red">Enter Name!</div>
-
                         <v-divider class="mt-3"></v-divider>
                         <div class = "mx-6 d-flex justify-center">Select Zone for - {{stateStore.rxAssignments[rxIndex].rxId}} </div>   
     

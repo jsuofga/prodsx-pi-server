@@ -114,8 +114,7 @@
       this.stateStore.txAssignments[this.txIndex].name = this.stateStore.txAssignments[this.txIndex].name
     },
     removeTx(){
-      this.stateStore.txAssignments[this.txIndex].name = ''
-      this.txToBeRemoved.push(this.txIndex)
+      this.stateStore.txAssignments.splice(this.txIndex, 1);
       this.open = false
     },
     assignTx(){

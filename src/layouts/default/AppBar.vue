@@ -14,7 +14,7 @@
             </v-row>
           </v-container>
         </v-app-bar-title>
-        <v-chip>PRODSX 2.0
+        <v-chip>PRODSX 2.0A
         </v-chip>
   </v-app-bar>
       <SideMenu></SideMenu>
