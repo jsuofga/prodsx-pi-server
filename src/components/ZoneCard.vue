@@ -2,7 +2,7 @@
     <v-container class="d-flex justify-center">
 
         <div id = 'myCard' class = "d-flex flex-column  align-center">
-                <label>Zone {{zoneIndex +1 }}</label> 
+                <label> {{zoneIndex }}</label> 
                  <v-btn id = "delete-btn" density="compact" icon="mdi-trash-can" color = "red"  @click="dialog = true">
                       
                   </v-btn>
@@ -33,7 +33,8 @@
                       </template>
                     </v-card>
                   </v-dialog>
-              <input id = "input" class = 'inputFont' @keyup = "updateZoneName('stateStore.zoneNames[zoneIndex]')" type="text" v-model = 'stateStore.zoneNames[zoneIndex]' maxlength="10"> 
+                <input id = "input" class = 'inputFont' @keyup = "updateZoneName(zoneIndex)" type="text" v-model = 'stateStore.zoneNames[zoneIndex]' maxlength="10"> 
+
         </div>
 
     </v-container>
@@ -64,30 +65,26 @@ export default {
             v => !!v || 'Name is required',
             v => (v && v.length <= 8) || 'Name must be less than 8 characters',
             ],
-
     }
   },
   computed:{
 
   },
  methods: {
-   
-    updateZoneName(_index){
-      this.stateStore.zoneNames[_index] = input
-    },
- 
+    // updateZoneName(_zoneIndex){
+    //   this.stateStore.zoneNames[_zoneIndex] = this.stateStore.zoneNames[_zoneIndex]
+    // },
     submit:function(){
       if(this.zonename ==''){
         this.alert = true
       }else{
         this.alert = false
-        // this.stateStore.saveSwitchConfigToPi(this.ipaddress)
           
       }
        this.$router.push('/')
     },
      trash:function(_zoneIndex){
-         this.stateStore.zoneNames.splice(_zoneIndex,1)
+        delete this.stateStore.zoneNames[_zoneIndex]
          this.dialog = false
      },
     cancel:function(){

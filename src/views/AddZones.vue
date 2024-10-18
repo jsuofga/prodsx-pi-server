@@ -70,15 +70,8 @@ export default {
  
     save:function(){
         // save to Pi Server file UserZoneNames.txt
-        const serverURL = '192.168.1.173:3000'
-        // const serverURL = `${location.hostname}:3000`
-
-        let zoneInputNames = {}
-          this.stateStore.zoneNames.forEach((item,index)=>{
-             zoneInputNames[`zone${index+1}`] = item ;
-          })
           // Send to Express to save in 'UserZoneNames.txt'
-          fetch(`http://${serverURL}/write/UserZoneNames/${JSON.stringify(zoneInputNames)}`)
+          fetch(`http://${this.stateStore.serverURL}/write/UserZoneNames/${JSON.stringify(this.stateStore.zoneNames)}`)
           .then((data)=>{
             this.$router.push('/')
           })

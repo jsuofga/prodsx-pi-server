@@ -46,7 +46,7 @@ export default {
     return {
         chName: '',
         alert:false,
-        chNumber:'',
+        chNumber:0,
         nameRules: [
             v => !!v || 'Name is required',
             v => (v && v.length <= 8) || 'Name must be less than 8 characters',
@@ -63,32 +63,17 @@ add: function() {
     console.log(this.chName)
     if (this.chName === '')return;
 
-
-    // if(this.stateStore.vwList.map((item)=> item.vwName).includes(this.vwName)){
-    //   alert('Enter unique video wall name')
-    //   return;
-    // }
-
-    // let irFavChannels = {}
-    //         this.favChNames.forEach((item,index)=>{
-    //               irFavChannels[`fav_ch_name_${index+1}`] = this.favChNames[index]
-    //               irFavChannels[`fav_ch_${index+1}`] = this.favChStations[index]
-    //         })
-
     let favCh = {}
     favCh[`fav_ch_name`] = this.chName
     favCh[`fav_ch`] = this.chNumber
     this.stateStore.irFavChannels.push(favCh)
     this.chName = ''
-    this.chNumber = ''
+    this.chNumber = 0
 },
-
     save:function(){
-
 
     },
     cancel:function(){
-       
        this.$router.push('/')
     }
 

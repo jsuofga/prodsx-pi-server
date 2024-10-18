@@ -66,7 +66,7 @@
     },
     methods: {
       openBrowser(_url){
-        window. open(`http://${_url}`)
+        window.open(`http://${_url}`)
       },
        rescan(){
         location.reload()

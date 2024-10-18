@@ -28,11 +28,18 @@
                       <v-btn v-if = "stateStore.rxAssignments[index].vwName == '' "
                         id = "pick-zone-btn"
                         color="orange"
-                        text="Assign Receiver"
+                        text="Change Zone Assignment"
                         variant="outlined"
                         v-bind="activatorProps"
                         @click = "RxSelected(index)"
                       ></v-btn>
+                      <v-btn v-else 
+                      text = 'Change Video Wall Assignment'
+                      variant="outlined"
+                      color="teal"
+                      @click = "this.$router.push('/addvideowalls')"
+                      >
+                      </v-btn>
                     </template>
 
                     <template v-slot:default="{ isActive }">
@@ -80,7 +87,7 @@
                             @click = "assignZone(_index)"
                           ></v-btn>
                         
-                        <v-btn v-if= "stateStore.rxAssignments[index].vwType == '' "  icon="mdi-delete" color="red" size = "x-large" @click = "removeRx()"></v-btn>
+                        <v-btn icon="mdi-delete" color="red" size = "x-large" @click = "removeRx()"></v-btn>
 
                         </v-card-actions>
                       </v-card>

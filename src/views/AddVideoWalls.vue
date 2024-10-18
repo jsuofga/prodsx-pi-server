@@ -69,11 +69,9 @@ export default {
     save:function(){
         console.log('save this',this.stateStore.rxAssignments)
         // save to Pi Server file UserTvNames.txt
-        const serverURL = '192.168.1.173:3000'
-        // const serverURL = `${location.hostname}:3000`
  
         //Send to Express to save in 'UserTvNames.txt'
-          fetch(`http://${serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
+          fetch(`http://${this.stateStore.serverURL}/write/UserTvNames/${JSON.stringify(this.stateStore.rxAssignments)}`)
           .then((data)=>{
             this.$router.push('/')
           })

@@ -9,11 +9,10 @@ import { defineStore } from 'pinia'
 export const useStateStore = defineStore('stateStore', {
     // other options...
     state: () => ({ 
-      //  serverURL: `${'192.168.1.173'}:3000`,
         serverURL: `${location.hostname}:3000`,
         showSideMenu:false,
         showProgress: true,
-        zoneNames:[],
+        zoneNames:{},
         vwList:[],
         rxAssignments:[],
         iTachUnits:[],
@@ -281,17 +280,13 @@ export const useStateStore = defineStore('stateStore', {
 
          },
         async get_zoneNames(){
-            this.zoneNames=[]
           // Read from Server
             fetch(`http://${this.serverURL}/read/UserZoneNames`, {method: 'GET',})
             .then(response => response.json())
             .then(result => {
-                let item;
-                for( item in result){
-                  this.zoneNames.push(result[item])
-                }
-                //  console.log('Zone names = ',this.zoneNames)
-            })
+               this.zoneNames = {...result}
+               console.log('zone is:',this.zoneNames, Object.keys(this.zoneNames).length )
+              })
             .catch(error => {
               console.error('Error:', error);
             });
@@ -307,7 +302,7 @@ export const useStateStore = defineStore('stateStore', {
                   this.rxAssignments.push(result[item]) // initialize rxAssignments
                   this.rxParams[result[item].rxId] = {chSelect:'search',vw_status:'0',display:''}  // initialize rxParams 
                 }
-                // console.log('rxAssignments = ',this.rxAssignments)
+                console.log('rxAssignments = ',this.rxAssignments)
                 this.get_vwList()
             })
             .catch(error => {
@@ -321,6 +316,8 @@ export const useStateStore = defineStore('stateStore', {
             fetch(`http://${this.serverURL}/read/UserInputNames`, {method: 'GET',})
             .then(response => response.json())
             .then(result => {
+                console.log("zombie :UserInputNames:", result)
+
                 let item;
                 for( item in result){
                   this.txAssignments.push(result[item])
@@ -377,12 +374,16 @@ export const useStateStore = defineStore('stateStore', {
 
     async get_UserFavChannels(){
 
-      const serverURL = `${location.hostname}:3000`
       // Read from Server
         fetch(`http://${this.serverURL}/read/UserFavChannels`, {method: 'GET',})
         .then(response => response.json())
         .then(result => {
-           this.irFavChannels = result
+          console.log('zombie:',result.length)
+           if(result.length == 0){
+            //Do nothing
+           }else{
+            this.irFavChannels = result
+           }
         }).catch(error => {
           console.error('Error:', error);
         });

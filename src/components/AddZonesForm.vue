@@ -20,13 +20,10 @@
             <v-btn color = "green" icon="mdi-arrow-down-bold" @click = 'add' size="large"></v-btn>
         </v-col>
       </v-row>
-
-
     </v-card>
 
     </v-container>
     
-
 </template>
 
 <script>
@@ -61,9 +58,8 @@ export default {
     add:function(){
       if(this.zonename ==''){
       }else{
-        this.stateStore.zoneNames.push(this.zonename)
+        this.stateStore.zoneNames[`zone${(Object.keys(this.stateStore.zoneNames).length + 1).toString()}`] = this.zonename
         this.zonename = ''
-          
       }
    
     },
