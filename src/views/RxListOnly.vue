@@ -58,12 +58,11 @@
     
                         <v-card-text class="px-4" style="height: 300px;">
                         <div class = 'zoneSelect'>
-                            <div @click = " radioButtonClicked(item,index)" v-for="(item,index) in stateStore.zoneNames" :key="index">
-                                <label class = "d-flex ma-3">
-                                  <input name="group1" type="radio"  />
-                                  <span class = "d-flex ma-3" >{{item}}</span>
-                                </label>
-                            </div>
+                            <v-radio-group v-model="stateStore.rxAssignments[rxIndex].zone" >
+                              <div v-for="(item, index) in stateStore.zoneNames" :key="index">
+                                <v-radio :label="item" :value="item" @click="radioButtonClicked(item,rxIndex)" />
+                              </div>
+                            </v-radio-group>
                         </div>
                         <div v-if = "alertChooseZone" class = "d-flex justify-center text-red">Select a Zone!</div>
                         </v-card-text>
@@ -79,6 +78,7 @@
                           <v-spacer></v-spacer>
 
                           <v-btn
+                            :disabled = "stateStore.rxAssignments[rxIndex].name == '' || stateStore.rxAssignments[rxIndex].zone == ''  "
                             color="blue"
                             prepend-icon="mdi-check-circle"
                             text="Assign"
@@ -125,7 +125,7 @@
     data: () => ({
         open : false,
         rxIndex:0,
-        rxToBeRemoved:[]
+        rxToBeRemoved:[],
     }),
     computed:{
     
@@ -155,7 +155,7 @@
         
       },
     assignZone(_index){
-      if(this.radioButtonSelected == ''){
+      if(this.stateStore.rxAssignments[this.rxIndex].zone == ''){
         this.alertChooseZone = true
       }else{ 
         this.stateStore.rxAssignments[this.rxIndex].zoneId = this.radioButtonSelected
@@ -164,6 +164,7 @@
         this.radioButtonSelected = ''
         this.open = false
       }
+      
 
 
     },

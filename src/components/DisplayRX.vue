@@ -59,7 +59,7 @@
   border-radius: 10px;
 }
 .button:hover {
-  background-color: rgb(52,199,89);
+  background-color: #2196F3;;
   color: white;
 }
 .notDetected
