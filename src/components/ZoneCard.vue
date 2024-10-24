@@ -71,9 +71,7 @@ export default {
 
   },
  methods: {
-    // updateZoneName(_zoneIndex){
-    //   this.stateStore.zoneNames[_zoneIndex] = this.stateStore.zoneNames[_zoneIndex]
-    // },
+
     submit:function(){
       if(this.zonename ==''){
         this.alert = true
@@ -114,7 +112,7 @@ export default {
 }
 #myCard{
   position: relative;
-  border:1px solid black;
+  border:1px solid grey;
   background-color: white;
   width:200px;
   height: 100px;

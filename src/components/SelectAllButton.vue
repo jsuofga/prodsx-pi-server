@@ -1,6 +1,6 @@
 <template>
         <div id = 'select-all-btn' class = "d-flex flex-column" >
-            <v-btn icon="mdi-all-inclusive" color = "blue" size="x-large" @click = "selectAll"></v-btn>
+            <v-btn icon="mdi-all-inclusive" color = "black" size="x-large" @click = "selectAll"></v-btn>
             <div class = "text-white">Select All</div>
         </div>
 
