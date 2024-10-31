@@ -40,7 +40,8 @@ export const useStateStore = defineStore('stateStore', {
         nodeQueryList_rx_not_found:[],
         txAssignments:[],
         rxParams:{},
-        cecTVstatus: ''
+        cecTVstatus: '',
+        showBottomNav: true, // default to true
             
      }),
      getters:{

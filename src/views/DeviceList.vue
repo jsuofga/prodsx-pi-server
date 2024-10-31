@@ -29,7 +29,6 @@
           </thead>
           <tbody>
             <tr v-for= "(item,index) in stateStore.nodeQueryList_dump" :key="index"  >
-
               <td >
                 <v-chip class = 'is_receiver' :class= "{ is_host: item.is_host == 'y' }" @click = 'openBrowser(item.ip)'  variant="outlined">{{item.is_host == 'y'? 'TX': 'RX'}}-{{item.ip}}</v-chip>
                 <v-chip v-if = "stateStore.nodeQueryList_ip_duplicates.includes(item.ip)" color="red" > Duplicate!</v-chip>
@@ -37,8 +36,8 @@
               <td>{{item.mcu_version}}</td>
               <td>{{item.fw_build}}</td>
               <td>{{item.mac}}</td>
-  
             </tr>
+
           </tbody>
       </v-table> 
   </v-container>
@@ -131,13 +130,15 @@
     }
    
     },
-  async created(){
+  async created(){      
+      this.stateStore.showBottomNav = false; // hide BottomNav
       this.stateStore.showSideMenu = false
       await this.stateStore.getNodeQuery() //call immediatly 1st 
       this.stateStore.get_UserTvNames() 
       this.showSave = true
     },
     beforeUnmount(){
+      this.stateStore.showBottomNav = true; // hide BottomNav
  
     }
 

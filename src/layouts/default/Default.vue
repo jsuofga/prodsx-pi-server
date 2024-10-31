@@ -4,16 +4,20 @@
     <AppBar />
     <!-- <default-view /> -->
     <DefaultView />
-    <BottomNav />
+    <BottomNav v-if = "stateStore.showBottomNav"/>
 
   </v-app>
 </template>
 
 <script setup>
+  import { useStateStore} from '@/stores/StateStore'
+
   import AppBar from './AppBar.vue'
   import DefaultView from './View.vue'
   import BottomNav from './BottomNav.vue'
 
+  const stateStore = useStateStore();
+    
 </script>
 
 <style scoped>

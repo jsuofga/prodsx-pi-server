@@ -74,6 +74,7 @@ const routes = [
         path: '/devicelist',
         name: 'DeviceList',
         component: () => import(/* webpackChunkName: "home" */ '@/views/DeviceList.vue'),
+
       },
     ],
   },
