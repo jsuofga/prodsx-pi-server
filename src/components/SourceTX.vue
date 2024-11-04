@@ -39,7 +39,6 @@ export default {
    
     // Get the last octet by retrieving the last element of the array
       let lastOctet = octets[octets.length - 1]
-
       _txID = lastOctet.length == 1 ? "00" + lastOctet : "0" + lastOctet
       this.stateStore.txSelected = _txID
 

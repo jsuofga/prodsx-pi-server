@@ -53,8 +53,7 @@ export default {
       bg_image: [],
       vwIPs:[],
       rxVolume: '10'
-
-        
+       
     }
   },
 computed:{
@@ -147,14 +146,16 @@ computed:{
   margin:5px
 }
 @media only screen and (min-width: 48em){
-  #capture-scaled1x3{
-    transform: rotate(90deg) scale(1.8,1.8) translate(-0%,-33.3%);
+#capture-scaled1x3{
+    transform-origin: center;
+    transform: rotate(-90deg) scale(1.8,1.8) translate(0%,33.3%);
     z-index:0
   }
 }
 @media screen and (min-width: 80em) {
-    #capture-scaled1x3{
-    transform: rotate(90deg) scale(1.8,2.8) translate(0%,-33%);
+  #capture-scaled1x3{
+    transform-origin: center;
+    transform: rotate(-90deg) scale(1.8,2.8) translate(0%,33%);
     z-index:0
   }
 }

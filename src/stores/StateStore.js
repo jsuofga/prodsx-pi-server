@@ -42,7 +42,11 @@ export const useStateStore = defineStore('stateStore', {
         rxParams:{},
         cecTVstatus: '',
         showBottomNav: true, // default to true
-            
+        preset1:{},
+        preset2:{},
+        preset3:{},
+
+
      }),
      getters:{
 
@@ -69,7 +73,6 @@ export const useStateStore = defineStore('stateStore', {
           fetch(`http://${this.rxSelected}/cgi-bin/query.cgi?cmd=vw:off%3Brxswitch:${_txID}`)
         },
         switchAllRX(_txID){
-          alert('switch ALL')
           for(let [index,item] of this.rxAssignments.entries() ){
               console.log(`http://${item.rxId}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
               fetch(`http://${item.rxId}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
@@ -87,10 +90,11 @@ export const useStateStore = defineStore('stateStore', {
           let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned  // list of rxId(s) in vwSelected
           switch (this.vwTypeSelected) {
             case '1x3':
-            //ClockWise Rotation
+            //CounterClockWise Rotation
               for( let col = 0; col <=2 ; col++){
                     fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
-                    fetch(`http://${rxUnitsInThisVW.reverse()[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_6`)
+                    fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_5`)
+
               }
               break;
             case '2x2':
@@ -250,7 +254,7 @@ export const useStateStore = defineStore('stateStore', {
                       // get astparam dump from each RX
                       const astparamDump = (await axios.get(`http://${item['rxId']}/cgi-bin/query.cgi?cmd=astparam dump`)).data
 
-                    //  console.log(astparamDump)
+                     console.log(astparamDump)
                     const match_ch_select = astparamDump.match(regex_pattern_ch_select );
                     const match_vw_max_row = astparamDump.match(regex_pattern_vw_max_row );
                     const match_vw_max_column = astparamDump.match(regex_pattern_vw_max_column );
@@ -265,6 +269,8 @@ export const useStateStore = defineStore('stateStore', {
                     this.rxParams[item.rxId]['max_column'] = vw_max_column
                     this.rxParams[item.rxId]['vw_row'] = vw_row
                     this.rxParams[item.rxId]['vw_column'] = vw_column
+                    this.rxParams[item.rxId]['ch'] = parseInt(match_ch_select[0].replace(/ch_select=/, ''))  // ch_selects = 0001, strip out ch_selects= and convert to integer  
+
   
                     if (match_ch_select  !=null && match_vw_max_column!=null ) {
                       let source_select_index = parseInt(match_ch_select[0].replace(/ch_select=/, '')) - 1 // ch_selects = 0001, strip out ch_selects= and convert to integer  

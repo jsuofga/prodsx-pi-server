@@ -93,6 +93,9 @@ submit: function() {
       case 'addchannelfavorites':
         this.$router.push('/addchannelfavorites');
         break;
+      case 'addpresets':
+        this.$router.push('/addpresets');
+        break;
       default:
         // Handle default case if necessary
         break;

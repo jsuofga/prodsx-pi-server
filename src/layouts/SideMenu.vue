@@ -9,6 +9,7 @@
                   <v-list-item link prepend-icon="mdi-grid-large" title="Video Walls Add|Edit" @click= "this.$router.push('/addvideowalls')"></v-list-item>
                   <v-list-item link prepend-icon="mdi-router-network" title="Global Cache ITach|Edit" @click= "this.$router.push('/additach')" :disabled = "stateStore.txAssignments.length == 0"></v-list-item>
                   <v-list-item link prepend-icon="mdi-remote" title="Channel Favorites" @click= "this.$router.push('/addchannelfavorites')" :disabled = "stateStore.iTachUnits.length == 0"></v-list-item>
+                  <v-list-item link prepend-icon="mdi-numeric" title="Add/Delete Presets" @click= "this.$router.push('/addpresets')" ></v-list-item>
                   <v-list-item link prepend-icon="mdi-upload" title="Update Software" @click= "this.$router.push('/update')"></v-list-item>
       </v-navigation-drawer>
 </template>

@@ -262,6 +262,30 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/addpresets',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '/addpresets',
+        name: 'AddPresets',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/AddPresets.vue'),
+        beforeEnter: (to, from, next) => {
+          let  StateStore = useStateStore(); // <-- passing Pinia instance directly
+
+          StateStore.pageToAuthenticateAndRoute = 'addpresets'
+
+          if (to.name !== 'AccessControl' && !StateStore.isAuthenticated) {
+            next({ name: 'AccessControl' });
+          } else {
+            StateStore.isAuthenticated = !StateStore.isAuthenticated
+            next();
+           
+          }
+        }
+      },
+    ],
+  },
   
 ]
 

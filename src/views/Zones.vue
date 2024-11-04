@@ -10,7 +10,8 @@
     <h2 class = "text-white">Select Menu. Goto Zones Add | Edit .</h2>
   </v-container>
 
-  <v-container v-else id = 'zones-container' fluid class="fill-height">
+  <v-container v-else id = 'zones-container' fluid class="fill-height"> 
+
       <v-row class = "d-flex justify-center">
             <v-col cols = "3" class = " myCols d-flex justify-center" v-for="(value,index) in stateStore.zoneNames" :key="index">
               <ZoneButton :zoneBtnName = value> </ZoneButton>
@@ -21,23 +22,23 @@
 
       </v-row>
       <PowerOnOffGroupButton></PowerOnOffGroupButton>
-      <SelectAllButton></SelectAllButton> 
+      <SelectSpeedDialButton></SelectSpeedDialButton> 
 
       <v-snackbar
             v-model="stateStore.snackbar"
             :timeout="3000"
             :color="stateStore.cecTVstatus == 'ON' ? 'green' : 'red'"
-          
         >    
             <div >
                   Powering Displays {{this.stateStore.cecTVstatus}}
             </div>
 
-
             <template>
                   <v-btn color="white" variant="text"></v-btn>
             </template>
         </v-snackbar>
+
+        <v-alert closable icon="$vuetify" text="..."></v-alert>
   </v-container>
 </template>
 
@@ -46,11 +47,12 @@
   import ZoneButton from '@/components/ZoneButton.vue'
   import VideowallButton from '@/components/VideowallButton.vue'
   import PowerOnOffGroupButton from '@/components/PowerOnOffGroupButton.vue'
-  import SelectAllButton from '@/components/SelectAllButton.vue'
+  import SelectSpeedDialButton from '@/components/SelectSpeedDialButton.vue'
+
 
   export default {
   name: "Zones",
-  components:{ZoneButton,VideowallButton,PowerOnOffGroupButton,SelectAllButton },
+  components:{ZoneButton,VideowallButton,PowerOnOffGroupButton,SelectSpeedDialButton },
 
   setup(){
     // Pinia
@@ -69,6 +71,7 @@
   created(){
       this.stateStore.showSideMenu = false
       this.stateStore.get_vwList()
+      this.stateStore.getFeedback()
   },
    mounted(){
 
