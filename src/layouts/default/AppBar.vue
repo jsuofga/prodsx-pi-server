@@ -16,7 +16,7 @@
             </v-row>
           </v-container>
         </v-app-bar-title>
-        <v-chip>PRODSX 2.6 ccw
+        <v-chip>PRODSX 2.6
         </v-chip>
   </v-app-bar>
       <SideMenu></SideMenu>

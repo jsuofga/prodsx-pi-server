@@ -90,10 +90,10 @@ export const useStateStore = defineStore('stateStore', {
           let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned  // list of rxId(s) in vwSelected
           switch (this.vwTypeSelected) {
             case '1x3':
-            //CounterClockWise Rotation
+            //ClockWise Rotation
               for( let col = 0; col <=2 ; col++){
                     fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
-                    fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_5`)
+                    fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_6`)
 
               }
               break;
