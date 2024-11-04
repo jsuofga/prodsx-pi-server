@@ -11,16 +11,16 @@
                     color="blue"
                >    
                     <div v-if = "stateStore.vwSelected == '' && stateStore.switchAllRx == false " >
-                         {{ ` ${stateStore.rxSelectedLabel} to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
+                         {{ `${stateStore.rxSelectedLabel} to ${stateStore.txAssignments.find(item => item.txId === `172.31.2.${stateStore.txSelected.replace(/0/g, '')}`).name}` }}
                     </div>
                     <div v-else-if = "stateStore.vwSelected != '' && stateStore.switch1RxOnly == true && stateStore.switchAllRx == false " >
-                         {{ ` ${stateStore.vwSelected} RX ${stateStore.rxSelected} to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
+                         {{ ` ${stateStore.vwSelected} RX ${stateStore.rxSelected} to ${stateStore.txAssignments.find(item => item.txId === `172.31.2.${stateStore.txSelected.replace(/0/g, '')}`).name}` }}
                     </div>
                     <div v-else-if = "stateStore.vwSelected != '' && stateStore.switch1RxOnly == false && stateStore.switchAllRx == false "  >
-                         {{ ` ${stateStore.vwSelected} to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
+                         {{ ` ${stateStore.vwSelected} to ${stateStore.txAssignments.find(item => item.txId === `172.31.2.${stateStore.txSelected.replace(/0/g, '')}`).name}` }}
                     </div>
                     <div v-else-if = "stateStore.switchAllRx == true "  >
-                         {{ ` All TV's to ${stateStore.txAssignments[parseInt(stateStore.txSelected)-1].name} `}}
+                         {{ ` All TV's to  ${stateStore.txAssignments.find(item => item.txId === `172.31.2.${stateStore.txSelected.replace(/0/g, '')}`).name}` }}
                     </div >
 
                     <template>

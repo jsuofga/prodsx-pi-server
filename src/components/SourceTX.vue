@@ -32,6 +32,7 @@ export default {
 
   methods: {
     selectTX(_txIP){
+      console.log(this.stateStore.txAssignments)
       let _txID = ''
 
     // Split the string based on '.'
