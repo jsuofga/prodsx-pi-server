@@ -38,7 +38,6 @@
             </template>
         </v-snackbar>
 
-        <v-alert closable icon="$vuetify" text="..."></v-alert>
   </v-container>
 </template>
 
