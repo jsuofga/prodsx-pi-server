@@ -45,7 +45,7 @@ export default {
         alert:false,
         nameRules: [
             v => !!v || 'Name is required',
-            v => (v && v.length <= 8) || 'Name must be less than 8 characters',
+            v => (v && v.length <= 10) || 'Name must be max 10 characters',
             ],
 
     }
