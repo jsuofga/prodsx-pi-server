@@ -53,7 +53,7 @@
     switchPreset(_preset){
           // alert('switch preset',_preset)
           // console.log(this.stateStore.preset1)
-          for(let [key,item] of Object.entries(this.stateStore.preset1) ){
+          for(let [key,item] of Object.entries(this.stateStore[`preset${_preset}`]) ){
             let ch = '000'
               if(item.ch <10){
                 ch = `00${item.ch}`
@@ -73,39 +73,21 @@
 
   //Life Cycle Hooks
   created(){
-    // read preset1
-    fetch(`http://${this.stateStore.serverURL}/read/UserPreset1`,{method: 'GET',})
-    .then(response => response.json())
-    .then(result => {
-      this.preset1Created = Object.keys(result).length > 0;   
-      this.stateStore.preset1 = result             
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-    //read preset2
-    fetch(`http://${this.stateStore.serverURL}/read/UserPreset2`,{method: 'GET',})
-    .then(response => response.json())
-    .then(result => {
-      this.preset2Created = Object.keys(result).length > 0;     
-      this.stateStore.preset2 = result             
-           
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    // Function to fetch and store preset data
+      const fetchPreset = (presetNumber) => {
+        fetch(`http://${this.stateStore.serverURL}/read/UserPreset${presetNumber}`, { method: 'GET' })
+          .then(response => response.json())
+          .then(result => {
+            this[`preset${presetNumber}Created`] = Object.keys(result).length > 0;
+            this.stateStore[`preset${presetNumber}`] = result;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      };
 
-    // read preset3
-    fetch(`http://${this.stateStore.serverURL}/read/UserPreset3`,{method: 'GET',})
-    .then(response => response.json())
-    .then(result => {
-      this.preset3Created = Object.keys(result).length > 0; 
-      this.stateStore.preset3 = result             
-               
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      // Fetch presets 1, 2, and 3
+      [1, 2, 3].forEach(fetchPreset);
 
   },
    mounted(){

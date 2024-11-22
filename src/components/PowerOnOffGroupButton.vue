@@ -2,12 +2,12 @@
         <v-btn-toggle id = 'group-btn' rounded="xl"  variant="outlined"   >
             <v-btn size = "x-large"  @click = "powerAll('on')" >
                 <v-icon color="green">mdi-power</v-icon>
-                <small class = "text-green">ON</small>
+                <small class = "text-green">TV On</small>
             </v-btn>
     
             <v-btn  size = "x-large" @click = "powerAll('off')" >
                 <v-icon color="red">mdi-power</v-icon> 
-                <small class = "text-red">Off</small>
+                <small class = "text-red">TV Off</small>
             </v-btn>
       </v-btn-toggle>
 

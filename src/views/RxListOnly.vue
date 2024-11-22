@@ -164,7 +164,6 @@
         this.radioButtonSelected = ''
         this.open = false
       }
-      
 
 
     },
@@ -192,7 +191,6 @@
   },
   beforeUnmount(){
     this.stateStore.showBottomNav = true; // show BottomNav
-
         
   }
 
