@@ -51,7 +51,6 @@ export default {
   }
 
 
-
 };
 
 </script>
@@ -75,8 +74,9 @@ export default {
 }
 #rx-label{
   position:absolute;
-  left:35%;
-  font: 1.2em sans-serif;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 1.0em sans-serif;
   color:white;
   background-color: orange;
 }
