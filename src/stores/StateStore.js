@@ -377,18 +377,20 @@ export const useStateStore = defineStore('stateStore', {
           });
     },
 
+    
     async get_UserFavChannels(){
 
       // Read from Server
         fetch(`http://${this.serverURL}/read/UserFavChannels`, {method: 'GET',})
         .then(response => response.json())
         .then(result => {
-          console.log('zombie:',result.length)
-           if(result.length == 0){
-            //Do nothing
-           }else{
-            this.irFavChannels = result
-           }
+          console.log('Success:', result);
+          let item;
+          for(item in result){
+            this.irFavChannels.push(result[item])
+          }
+           console.log(this.irFavChannels)
+    
         }).catch(error => {
           console.error('Error:', error);
         });
