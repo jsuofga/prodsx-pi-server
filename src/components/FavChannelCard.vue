@@ -72,8 +72,8 @@ export default {
  methods: {
   numbersRule(value) {
       const num = parseFloat(value);
-      if (isNaN(num) || num <= 1 || num >= 500) {
-        return 'Please enter a number between 1 and less than 500';
+      if (isNaN(num) || num < 1 || num > 999) {
+        return 'Please enter a number between 1 and 999';
       }
         return true;
     },

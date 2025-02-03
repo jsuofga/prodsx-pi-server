@@ -69,7 +69,8 @@
   //Life Cycle Hooks
   created(){
       this.stateStore.showSideMenu = false
-      this.stateStore.get_vwList()
+      this.stateStore.get_UserTvNames()
+      // this.stateStore.get_vwList()
       this.stateStore.getFeedback()
   },
    mounted(){

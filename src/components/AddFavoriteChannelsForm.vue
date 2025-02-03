@@ -16,7 +16,7 @@
       <v-row id = 'select' xs3 class = "d-flex justify-center my-6 mx-10">
         <v-select  v-model= "chNumber"
           label="Pick Channel"
-          :items= "Array.from({length: 500}, (_, i) => i + 1)"
+          :items= "Array.from({length: 999}, (_, i) => i + 1)"
         ></v-select>
       </v-row>
       <v-row v-if = "this.chName != '' && this.chNumber != '' " id = "buttons-container" class = " d-flex justify-center">
@@ -46,7 +46,7 @@ export default {
     return {
         chName: '',
         alert:false,
-        chNumber:0,
+        chNumber:1,
         nameRules: [
             v => !!v || 'Name is required',
             v => (v && v.length <= 10) || 'Name must be max 10 characters',
