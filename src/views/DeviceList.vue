@@ -138,7 +138,6 @@
       this.showSave = true
     },
     beforeUnmount(){
-      this.stateStore.showBottomNav = true; // hide BottomNav
  
     }
 

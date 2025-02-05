@@ -51,7 +51,7 @@ export default {
         .catch(error => console.log(error));
 
         alert(`Saved Preset${_preset}`)
-        this.$router.push('/')
+        // this.$router.push('/')
     },
 
     clearPreset(_preset){
@@ -64,7 +64,7 @@ export default {
 
         alert(`Cleared Preset${_preset}`)
 
-        this.$router.push('/')
+        // this.$router.push('/')
     },
     cancel(){
          this.$router.push('/')

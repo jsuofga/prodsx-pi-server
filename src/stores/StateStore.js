@@ -41,7 +41,7 @@ export const useStateStore = defineStore('stateStore', {
         txAssignments:[],
         rxParams:{},
         cecTVstatus: '',
-        showBottomNav: true, // default to true
+        showBottomNav: false, // default to false
         preset1:{},
         preset2:{},
         preset3:{},
