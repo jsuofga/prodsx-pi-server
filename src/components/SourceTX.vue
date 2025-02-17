@@ -3,7 +3,7 @@
     <button class="button" @click = "selectTX(txIP)">
        {{txLabel}}
        <div id='tx-label'>{{txIP}} </div>
-      <img  :src= bg_image  width="190" aspect-ratio="16/9" > 
+      <v-img cover :src= bg_image  width="190" height = "107" >  </v-img>
       
       <v-btn v-if = "showRemoteBtn != null" id = "remote-select"  icon="mdi-remote" color = "blue" @click = "selectRemote()"></v-btn>
 
