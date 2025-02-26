@@ -33,6 +33,7 @@ export const useStateStore = defineStore('stateStore', {
         isAuthenticated:false,
         pageToAuthenticateAndRoute:'',
         snackbar:false,
+        snackbarCeC:false,
         snackbarVWOff:false,
         nodeQueryList_dump:[],
         nodeQueryList_ip:[],

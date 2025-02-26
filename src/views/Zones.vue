@@ -25,7 +25,7 @@
       <SelectSpeedDialButton></SelectSpeedDialButton> 
 
       <v-snackbar
-            v-model="stateStore.snackbar"
+            v-model="stateStore.snackbarCeC"
             :timeout="3000"
             :color="stateStore.cecTVstatus == 'ON' ? 'green' : 'red'"
         >    
