@@ -5,7 +5,7 @@
        <div id='tx-label'>{{txIP}} </div>
       <v-img cover :src= bg_image  width="190" height = "107" >  </v-img>
       
-      <v-btn v-if = "showRemoteBtn != null" id = "remote-select"  icon="mdi-remote" color = "blue" @click = "selectRemote()"></v-btn>
+      <v-btn v-if = "showRemoteBtn != null" id = "remote-select"  icon="mdi-remote" color = "blue" @click.stop = "selectRemote()"></v-btn>
 
     </button>
 

@@ -30,7 +30,7 @@
 
                 <!-- RX Volume section -->
                  <v-row class='d-flex justify-center mt-6 '>
-                    <input @change = "changeVolume()" type="range" min="1" max="100" v-model = "rxVolume">
+                    <input  @change = "changeVolume()" type="range" min="1" max="100" v-model = "rxVolume">
                     <label class = 'text-white' for="volume"> <small>2CH Audio Volume-{{ rxVolume }}</small></label>
                  </v-row>
 
@@ -141,9 +141,7 @@
   /* border: 1px solid red;
   background-color: black; */
 }
-#video-inputs{
 
-}
 
 
 </style>
