@@ -68,11 +68,13 @@ export default {
      
   },
 //Life Cycle Hooks
-  created(){
+  async created(){
+    this.stateStore.showBottomNav = false; // hide BottomNav
+    this.stateStore.showSideMenu = false
+
 
   },
    mounted(){
-   this.stateStore.showSideMenu = false
  
   },
   beforeUnmount(){

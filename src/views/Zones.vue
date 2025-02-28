@@ -71,13 +71,14 @@
       this.stateStore.showSideMenu = false
       this.stateStore.get_UserTvNames()
       // this.stateStore.get_vwList()
-      this.stateStore.getFeedback()
+
   },
    mounted(){
 
  
   },
   beforeUnmount(){
+
   }
 
   

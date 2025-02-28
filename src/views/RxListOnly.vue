@@ -186,6 +186,7 @@
 
     },
   async created(){
+        this.stateStore.showBottomNav = false; // hide BottomNav
         this.stateStore.showSideMenu = false
   },
   beforeUnmount(){
