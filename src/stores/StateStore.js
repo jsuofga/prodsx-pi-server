@@ -26,6 +26,7 @@ export const useStateStore = defineStore('stateStore', {
         switchAllRx:false,
         vw2x3Mode:'',
         vw3x3Mode:'',
+        vw4x4Mode:'',
         page: '/', 
         rxSelected: '1',
         rxSelectedLabel: '',
@@ -134,6 +135,13 @@ export const useStateStore = defineStore('stateStore', {
             case '3x3':
          
               if (this.vw3x3Mode === 'vw3x3_2x2on') {
+
+                // set all displays to solo mode first.
+                let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                for(let [index,rxId] of rxUnitsInThisVW.entries() ){
+                  fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                }
+                //2x2
                 let rxIn3x3AssignedTo2x2 = [0, 1, 3, 4]; //index position
                 let count = 0;
                 for (let row = 0; row <= 1; row++) {
@@ -144,6 +152,13 @@ export const useStateStore = defineStore('stateStore', {
                   }
                 }
               } else if (this.vw3x3Mode === 'vw3x3_2x3on') {
+
+                // set all displays to solo mode first.
+                let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                for(let [index,rxId] of rxUnitsInThisVW.entries() ){
+                  fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                }
+                // 2x3
                 let count = 0;
                 for (let row = 0; row <= 1; row++) {
                   for (let column = 0; column <= 2; column++) {
@@ -163,6 +178,75 @@ export const useStateStore = defineStore('stateStore', {
                 }
               }
               break;
+
+              case '4x4':
+
+                if (this.vw4x4Mode === 'vw4x4_2x2on') {
+                    // set all displays to solo mode first.
+                    let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                    for(let [index,rxId] of rxUnitsInThisVW.entries() ){
+                      fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                    }
+                  // 2x2
+                  let rxIn4x4AssignedTo2x2 = [0, 1, 4, 5]; //index position
+                  let count = 0;
+                  for (let row = 0; row <= 1; row++) {
+                    for (let column = 0; column <= 1; column++) {
+                      fetch(`http://${rxUnitsInThisVW[rxIn4x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      fetch(`http://${rxUnitsInThisVW[rxIn4x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                      count++;
+                    }
+                  }
+
+                } else if (this.vw4x4Mode === 'vw4x4_2x3on') {
+                    // set all displays to solo mode first.
+                    let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                    for(let [index,rxId] of rxUnitsInThisVW.entries() ){
+                      fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                    }
+                  
+                  //2x3
+                  let rxIn4x4AssignedTo2x3 = [0,1,2,4,5,6]; //index position
+                  let count = 0;
+                  for (let row = 0; row <= 1; row++) {
+                    for (let column = 0; column <= 2; column++) {
+                      fetch(`http://${rxUnitsInThisVW[rxIn4x4AssignedTo2x3[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      fetch(`http://${rxUnitsInThisVW[rxIn4x4AssignedTo2x3[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_2%3Be%20e_vw_enable_1_2_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                      count++;
+                    }
+                  }
+
+                } else if (this.vw4x4Mode === 'vw4x4_3x3on') {
+
+                  // set all displays to solo mode first.
+                  let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                  for(let [index,rxId] of rxUnitsInThisVW.entries() ){
+                    fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                  }
+
+                  // 3x3 
+                  let rxIn4x4AssignedTo3x3 = [0,1,2,4,5,6,8,9,10]; //index position
+                  let count = 0;
+                  for (let row = 0; row <= 2; row++) {
+                    for (let column = 0; column <= 2; column++) {
+                      fetch(`http://${rxUnitsInThisVW[rxIn4x4AssignedTo3x3[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      fetch(`http://${rxUnitsInThisVW[rxIn4x4AssignedTo3x3[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_2_2%3Be%20e_vw_enable_2_2_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                      count++;
+                    }
+                  }
+
+
+                }else if (this.vw4x4Mode === 'vw4x4_4x4on') {
+                  let count = 0;
+                  for (let row = 0; row <= 3; row++) {
+                    for (let column = 0; column <= 3; column++) {
+                      fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_3_3%3Be%20e_vw_enable_3_3_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                      count++;
+                    }
+                  }
+                }
+
             default:
               break;
           }
@@ -377,7 +461,6 @@ export const useStateStore = defineStore('stateStore', {
             console.error('Error:', error);
           });
     },
-
     
     async get_UserFavChannels(){
 

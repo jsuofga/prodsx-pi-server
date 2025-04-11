@@ -72,7 +72,6 @@
 <script>
 
 import { useStateStore} from '@/stores/StateStore'
-import { ref } from 'vue';
 
 export default {
   name: 'VideoWall3x3',

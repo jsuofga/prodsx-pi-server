@@ -34,6 +34,10 @@
             <v-icon icon="mdi-grid" size = large ></v-icon>  
             <v-radio label="3x3" value="3x3"></v-radio>
           </div>
+          <div class = "d-flex flex-column align-center mx-9">
+            <v-icon icon="mdi-view-grid-plus" size = large ></v-icon>  
+            <v-radio label="4x4" value="4x4"></v-radio>
+          </div>
          
         
         </v-row>
@@ -136,6 +140,7 @@ add: function() {
         '2x2': 4,
         '2x3': 6,
         '3x3': 9,
+        '4x4': 16,
     };
 
     let requiredRxCount = requiredRxCounts[vw.vwType];
