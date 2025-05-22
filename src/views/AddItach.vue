@@ -48,7 +48,20 @@ export default {
         }
     },
     methods: {
+      isValidIP(ip) {
+        const ipv4Regex = /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/;
+        return ipv4Regex.test(ip);
+      },
        save:function(){
+       // Validate IPs
+          const invalidIPs = this.stateStore.iTachUnits.filter(ip => !this.isValidIP(ip));
+
+          if (invalidIPs.length > 0) {
+            alert(`Invalid IP address(es): ${invalidIPs.join(', ')}`);
+            return; // Stop execution
+          }
+
+        // If valid, proceed with save
         // Read user inputs and save 
           let itachAddresses = {}
           this.stateStore.iTachUnits.forEach((item,index)=>{
