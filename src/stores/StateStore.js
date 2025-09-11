@@ -95,7 +95,7 @@ export const useStateStore = defineStore('stateStore', {
             //ClockWise Rotation
               for( let col = 0; col <=2 ; col++){
                     fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
-                    fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_6`)
+                    fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${2-col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_6`)
 
               }
               break;
