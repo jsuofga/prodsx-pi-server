@@ -25,6 +25,7 @@ export const useStateStore = defineStore('stateStore', {
         switch1RxOnly:true,
         switchAllRx:false,
         vw2x3Mode:'',
+        vw2x4Mode:'',
         vw3x3Mode:'',
         vw4x4Mode:'',
         page: '/', 
@@ -127,6 +128,40 @@ export const useStateStore = defineStore('stateStore', {
                   for (let column = 0; column <= 2; column++) {
                     fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
                     fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_2%3Be%20e_vw_enable_1_2_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                    count++;
+                  }
+                }
+              }
+              break;
+            case '2x4':
+                   
+              if (this.vw2x4Mode === 'vw2x4_2x2A_on') {
+                let rxIn2x4AssignedTo2x2 = [0, 1, 4, 5]; //index position
+                let count = 0;
+                for (let row = 0; row <= 1; row++) {
+                  for (let column = 0; column <= 1; column++) {
+                    fetch(`http://${rxUnitsInThisVW[rxIn2x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                    fetch(`http://${rxUnitsInThisVW[rxIn2x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                    count++;
+                  }
+                }
+              } else if(this.vw2x4Mode === 'vw2x4_2x2B_on'){
+                let rxIn2x4AssignedTo2x2 = [2, 3, 6, 7]; //index position
+                let count = 0;
+                for (let row = 0; row <= 1; row++) {
+                  for (let column = 0; column <= 1; column++) {
+                    fetch(`http://${rxUnitsInThisVW[rxIn2x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                    fetch(`http://${rxUnitsInThisVW[rxIn2x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                    count++;
+                  }
+                }
+
+              } else if (this.vw2x4Mode === 'vw2x4_2x4on') {
+                let count = 0;
+                for (let row = 0; row <= 1; row++) {
+                  for (let column = 0; column <= 3; column++) {
+                    fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                    fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_3%3Be%20e_vw_enable_1_3_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
                     count++;
                   }
                 }

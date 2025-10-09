@@ -31,6 +31,10 @@
             <v-radio label="2x3" value="2x3"></v-radio>
           </div>
           <div class = "d-flex flex-column align-center mx-9">
+            <v-icon icon="mdi-view-grid-plus" size = large ></v-icon>  
+            <v-radio label="2x4" value="2x4"></v-radio>
+          </div>
+          <div class = "d-flex flex-column align-center mx-9">
             <v-icon icon="mdi-grid" size = large ></v-icon>  
             <v-radio label="3x3" value="3x3"></v-radio>
           </div>
@@ -139,6 +143,7 @@ add: function() {
         '1x3': 3,
         '2x2': 4,
         '2x3': 6,
+        '2x4': 8,
         '3x3': 9,
         '4x4': 16,
     };
@@ -191,7 +196,7 @@ add: function() {
 <style scoped>
 
 #myCard{
-  width:80%;
+  width:100%;
   margin-bottom:20px
 }
 #buttons-container{
