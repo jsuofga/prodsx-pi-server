@@ -7,7 +7,7 @@
       </v-card-title>
       <v-card-text >
         <v-form >
-          <v-text-field label = 'Video Wall Name' :rules = 'nameRules' v-model = 'vwName' prepend-inner-icon="mdi-grid-large" >
+          <v-text-field label = 'Enter Video Wall Name' :rules = 'nameRules' v-model = 'vwName' prepend-inner-icon="mdi-grid-large" >
           </v-text-field>
         <!-- <div v-if= "alert" class = "text-red">alert</div> -->
         </v-form>
@@ -17,28 +17,32 @@
       <v-radio-group class = "py-6" v-model= "vwType">
         <v-row class = "d-flex justify-center">Type</v-row>
         <v-row class = "d-flex justify-center px-2  ">
-          <div class = "d-flex flex-column align-center mx-9">
+          <div class = "d-flex flex-column align-center mx-6">
               <v-icon icon="mdi-view-column-outline" size = large ></v-icon>  
               <v-radio label="1x3" value="1x3"></v-radio>  
                <small>CW</small>
           </div>
-           <div class = "d-flex flex-column align-center mx-9">
+           <div class = "d-flex flex-column align-center mx-6">
                <v-icon icon="mdi-grid-large" size = large ></v-icon>  
                <v-radio label="2x2" value="2x2"></v-radio>
           </div>
-          <div class = "d-flex flex-column align-center mx-9">
+          <div class = "d-flex flex-column align-center mx-6">
             <v-icon icon="mdi-view-module-outline" size = x-large ></v-icon>  
             <v-radio label="2x3" value="2x3"></v-radio>
           </div>
-          <div class = "d-flex flex-column align-center mx-9">
+          <div class = "d-flex flex-column align-center mx-6">
             <v-icon icon="mdi-view-grid-plus" size = large ></v-icon>  
             <v-radio label="2x4" value="2x4"></v-radio>
           </div>
-          <div class = "d-flex flex-column align-center mx-9">
+         <div class = "d-flex flex-column align-center mx-6">
             <v-icon icon="mdi-grid" size = large ></v-icon>  
             <v-radio label="3x3" value="3x3"></v-radio>
           </div>
-          <div class = "d-flex flex-column align-center mx-9">
+          <div class = "d-flex flex-column align-center mx-6">
+            <v-icon icon="mdi-view-grid-plus" size = large ></v-icon>  
+            <v-radio label="3x4" value="3x4"></v-radio>
+          </div>
+          <div class = "d-flex flex-column align-center mx-6">
             <v-icon icon="mdi-view-grid-plus" size = large ></v-icon>  
             <v-radio label="4x4" value="4x4"></v-radio>
           </div>
@@ -145,6 +149,7 @@ add: function() {
         '2x3': 6,
         '2x4': 8,
         '3x3': 9,
+        '3x4': 12,
         '4x4': 16,
     };
 

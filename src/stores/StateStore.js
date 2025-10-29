@@ -27,6 +27,7 @@ export const useStateStore = defineStore('stateStore', {
         vw2x3Mode:'',
         vw2x4Mode:'',
         vw3x3Mode:'',
+        vw3x4Mode:'', //
         vw4x4Mode:'',
         page: '/', 
         rxSelected: '1',
@@ -86,7 +87,9 @@ export const useStateStore = defineStore('stateStore', {
           this.snackbarVWOff = true
           let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
           for(let [index,rxId] of rxUnitsInThisVW.entries() ){
-            fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off%3Brxswitch:00${index+1}`)
+            // fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off%3Brxswitch:00${index+1}`)  // switch RX to matching TX. RX1 = TX1, RX2 = TX2
+            fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off%3Brxswitch:001`)  //switch all RX to 001
+
           }
         },
         switchVW(_txID){
@@ -97,7 +100,6 @@ export const useStateStore = defineStore('stateStore', {
               for( let col = 0; col <=2 ; col++){
                     fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`)
                     fetch(`http://${rxUnitsInThisVW[col]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_enable_2_0_${2-col}_0%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_rotate_6`)
-
               }
               break;
             case '2x2':
@@ -111,7 +113,6 @@ export const useStateStore = defineStore('stateStore', {
               }
               break;
             case '2x3':
-                   
               if (this.vw2x3Mode === 'vw2x3_2x2on') {
                 let rxIn2x3AssignedTo2x2 = [0, 1, 3, 4]; //index position
                 let count = 0;
@@ -134,7 +135,6 @@ export const useStateStore = defineStore('stateStore', {
               }
               break;
             case '2x4':
-                   
               if (this.vw2x4Mode === 'vw2x4_2x2A_on') {
                 let rxIn2x4AssignedTo2x2 = [0, 1, 4, 5]; //index position
                 let count = 0;
@@ -213,7 +213,102 @@ export const useStateStore = defineStore('stateStore', {
                 }
               }
               break;
+              case '3x4':
+                if (this.vw3x4Mode === 'vw3x4_2x2A_on') {
+                // Turn video wall off bottom row (last 4 displays).
+                  let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                  for (let rxId of rxUnitsInThisVW.slice(-4)) {
+                    fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                  }
+                  let rxIn3x4AssignedTo2x2 = [0, 1, 4, 5]; //index position
+                  let count = 0;
 
+                  // Original-Configure top-left 2x2 section
+                  // for (let row = 0; row <= 1; row++) {
+                  //   for (let column = 0; column <= 1; column++) {
+                  //     fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                  //     fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                  //     count++;
+                  //   }
+                  // }
+
+                  // For Upside down TV's on TOP Row case: //////////////////////////////////////////////
+                  for (let row = 0; row <= 1; row++) {
+                    for (let column = 0; column <= 1; column++) {
+                        fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      if(row == 0){
+                      // Upside Down Top Row
+                          fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row + 1}_${1 - column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}%3Be%20e_vw_rotate_3`);
+                      }else{
+                          fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                      }
+                      count++;
+                    }
+                  }
+                  /////////////////////////////////////////////////////////////////////////////////////////
+        
+
+                } else if(this.vw3x4Mode === 'vw3x4_2x2B_on'){
+                // Turn video wall off bottom row (last 4 displays).
+                  let rxUnitsInThisVW = this.vwList.filter((item) => item.vwName == this.vwSelected)[0].rxAssigned
+                  for (let rxId of rxUnitsInThisVW.slice(-4)) {
+                    fetch(`http://${rxId}/cgi-bin/query.cgi?cmd=vw:off`)
+                  }
+                  let rxIn3x4AssignedTo2x2 = [2, 3, 6, 7]; //index position
+                  let count = 0;
+                  // Original-Configure top-right 2x2 section
+                  // for (let row = 0; row <= 1; row++) {
+                  //   for (let column = 0; column <= 1; column++) {
+                  //     fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                  //     fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                  //     count++;
+                  //   }
+                  // }
+
+                  // For Upside down TV's on TOP Row case: //////////////////////////////////////////////
+                  for (let row = 0; row <= 1; row++) {
+                    for (let column = 0; column <= 1; column++) {
+                        fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      if(row == 0){
+                      // Upside Down Top Row
+                          fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row + 1}_${1 - column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}%3Be%20e_vw_rotate_3`);
+                        }else{
+                          fetch(`http://${rxUnitsInThisVW[rxIn3x4AssignedTo2x2[count]]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_1_1%3Be%20e_vw_enable_1_1_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                        }
+                      count++;
+                    }
+                  }
+                  /////////////////////////////////////////////////////////////////////////////////////////
+
+                } else if (this.vw3x4Mode === 'vw3x4_3x4on') {
+                  let count = 0;
+
+                  // Original
+                  // for (let row = 0; row <= 2; row++) {
+                  //   for (let column = 0; column <= 3; column++) {
+                  //     fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                  //     fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_2_3%3Be%20e_vw_enable_2_3_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                  //     count++;
+                  //   }
+                  // }
+
+                  // For Upside down TV's on TOP Row case: //////////////////////////////////////////////
+                  for (let row = 0; row <= 2; row++) {
+                    for (let column = 0; column <= 3; column++) {
+                        fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=rxswitch:${_txID}`);
+                      if(row == 0){
+                        // Upside Down Top Row
+                        fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_2_3%3Be%20e_vw_enable_2_3_${row + 2}_${3 - column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}%3Be%20e_vw_rotate_3`);
+                      }else{
+                        fetch(`http://${rxUnitsInThisVW[count]}/cgi-bin/query.cgi?cmd=vw:off%3Be%20e_vw_pos_layout_2_3%3Be%20e_vw_enable_2_3_${row}_${column}%3Be%20e_vw_moninfo_200_200_100_100%3Be%20e_vw_refresh_pos_idx_${row}_${column}`);
+                      }
+                      count++;
+                    }
+                  }
+                  /////////////////////////////////////////////////////////////////////////////////////////
+
+                }
+                break;
               case '4x4':
 
                 if (this.vw4x4Mode === 'vw4x4_2x2on') {

@@ -38,7 +38,9 @@
         </v-row> 
 
         <v-row v-else-if = "is2x4VideoWallOn" id ='vw-2x4'>
-          <v-col cols = '3' class = "grid-2x4"><v-img id = 'capture-scaled2x4' cover :src= bg_image[0] @click = "switch2x4VW_solo(0)"><v-chip class = "rx-chip-scale-down-2x4">{{vwIPs[0]}}</v-chip></v-img></v-col>
+          <v-col cols = '3' class = "grid-2x4"><v-img id = 'capture-scaled2x4' cover :src= bg_image[0] 
+            
+            ><v-chip class = "rx-chip-scale-down-2x4">{{vwIPs[0]}}</v-chip></v-img></v-col>
           <v-col cols = '3' class = "grid-2x4"><v-img ><v-chip class = "rx-chip">{{vwIPs[1]}}</v-chip><v-btn id = 'vw2x4-2x2Btn'  size='large' @click = "switch2x4VW('vw2x4_2x2A_on')">2x2-A</v-btn></v-img></v-col>
           <v-col cols = '3' class = "grid-2x4"><v-img ><v-chip class = "rx-chip">{{vwIPs[2]}}</v-chip></v-img></v-col>
           <v-col cols = '3' class = "grid-2x4"><v-img ><v-chip class = "rx-chip">{{vwIPs[3]}}</v-chip><v-btn id = 'vw2x4-2x2Btn-b'  size='large' @click = "switch2x4VW('vw2x4_2x2B_on')">2x2-B</v-btn></v-img></v-col>

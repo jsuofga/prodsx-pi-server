@@ -6,6 +6,7 @@
       <VideoWall2x3 v-else-if = "stateStore.vwTypeSelected == '2x3'" > </VideoWall2x3>
       <VideoWall2x4 v-else-if = "stateStore.vwTypeSelected == '2x4'" > </VideoWall2x4>
       <VideoWall3x3 v-else-if = "stateStore.vwTypeSelected == '3x3'" > </VideoWall3x3>
+      <VideoWall3x4 v-else-if = "stateStore.vwTypeSelected == '3x4'" > </VideoWall3x4>
       <VideoWall1x3 v-else-if = "stateStore.vwTypeSelected == '1x3'" > </VideoWall1x3>
       <VideoWall4x4 v-else-if = "stateStore.vwTypeSelected == '4x4'" > </VideoWall4x4>
      </v-row>
@@ -20,6 +21,7 @@
   import VideoWall2x3 from '@/components/VideoWall2x3.vue'
   import VideoWall2x4 from '@/components/VideoWall2x4.vue'
   import VideoWall3x3 from '@/components/VideoWall3x3.vue'
+  import VideoWall3x4 from '@/components/VideoWall3x4.vue'
   import VideoWall1x3 from '@/components/VideoWall1x3.vue'
   import VideoWall4x4 from '@/components/VideoWall4x4.vue'
 
@@ -27,7 +29,7 @@
 
   export default {
     name: "VideowallView",
-    components: {VideoWall2x2,VideoWall2x3,VideoWall2x4,VideoWall3x3,VideoWall1x3,VideoWall4x4},
+    components: {VideoWall2x2,VideoWall2x3,VideoWall2x4,VideoWall3x3,VideoWall3x4,VideoWall1x3,VideoWall4x4},
     setup(){
       // Pinia
         const stateStore = useStateStore()
